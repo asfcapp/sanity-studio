@@ -1,8 +1,11 @@
 // schemas/home.js
+import {HomeIcon} from '@sanity/icons'
+
 export default {
   name: 'home',
   type: 'document',
   title: 'Home',
+  icon: HomeIcon,
   fields: [
     {
       name: 'sectionTitle',

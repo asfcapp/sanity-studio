@@ -1,7 +1,10 @@
+import {ComponentIcon} from '@sanity/icons'
+
 export default {
   name: 'partenaire',
   type: 'document',
   title: 'Partenaires',
+  icon: ComponentIcon,
   fields: [
     {
       name: 'photo',

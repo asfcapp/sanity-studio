@@ -1,9 +1,11 @@
 import {defineField, defineType} from 'sanity'
+import {AddDocumentIcon} from '@sanity/icons'
 
 export default defineType({
   name: 'post',
   title: 'Post',
   type: 'document',
+  icon: AddDocumentIcon,
   fields: [
     defineField({
       name: 'title',
@@ -34,10 +36,9 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'categories',
-      title: 'Categories',
-      type: 'array',
-      of: [{type: 'reference', to: {type: 'category'}}],
+      name: 'body',
+      title: 'Body',
+      type: 'blockContent',
     }),
     defineField({
       name: 'publishedAt',
@@ -45,15 +46,16 @@ export default defineType({
       type: 'datetime',
     }),
     defineField({
-      name: 'body',
-      title: 'Body',
-      type: 'blockContent',
+      name: 'blogCategory',
+      title: 'Blog categories',
+      type: 'array',
+      of: [{type: 'reference', to: {type: 'blogCategory'}}],
     }),
     defineField({
-      name: 'tag',
-      title: 'Tags',
+      name: 'columnistCategory',
+      title: 'Columnist categories',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'tag'}}],
+      of: [{type: 'reference', to: {type: 'columnistCategory'}}],
     }),
   ],
 
