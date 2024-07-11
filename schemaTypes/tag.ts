@@ -12,4 +12,3 @@ export default defineType({
     }),
   ],
 })
-// comment: https://github.com/ ccccs
