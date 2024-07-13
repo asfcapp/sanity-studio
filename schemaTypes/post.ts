@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity';
 
 export default defineType({
   name: 'post',
@@ -23,7 +23,7 @@ export default defineType({
       name: 'author',
       title: 'Author',
       type: 'reference',
-      to: {type: 'author'},
+      to: { type: 'author' },
     }),
     defineField({
       name: 'mainImage',
@@ -37,7 +37,7 @@ export default defineType({
       name: 'categories',
       title: 'Categories',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'category'}}],
+      of: [{ type: 'reference', to: { type: 'category' } }],
     }),
     defineField({
       name: 'publishedAt',
@@ -53,7 +53,13 @@ export default defineType({
       name: 'tag',
       title: 'Tags',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'tag'}}],
+      of: [{ type: 'reference', to: { type: 'tag' } }],
+    }),
+    defineField({
+      name: 'displayOnHomePage',
+      title: 'Display on Home Page',
+      type: 'boolean',
+      description: 'Check this box if you want this post to be displayed on the home page.',
     }),
   ],
 
@@ -64,8 +70,8 @@ export default defineType({
       media: 'mainImage',
     },
     prepare(selection) {
-      const {author} = selection
-      return {...selection, subtitle: author && `by ${author}`}
+      const { author } = selection;
+      return { ...selection, subtitle: author && `by ${author}` };
     },
   },
-})
+});

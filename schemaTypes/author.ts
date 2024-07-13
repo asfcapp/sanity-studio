@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export default defineType({
   name: 'author',
@@ -26,6 +26,36 @@ export default defineType({
       options: {
         hotspot: true,
       },
+    }),
+    defineField({
+      name: 'bio',
+      title: 'Bio',
+      type: 'text',
+    }),
+    defineField({
+      name: 'facebook',
+      title: 'Facebook',
+      type: 'url',
+    }),
+    defineField({
+      name: 'linkedin',
+      title: 'LinkedIn',
+      type: 'url',
+    }),
+    defineField({
+      name: 'instagram',
+      title: 'Instagram',
+      type: 'url',
+    }),
+    defineField({
+      name: 'website',
+      title: 'Website',
+      type: 'url',
+    }),
+    defineField({
+      name: 'dateJoined',
+      title: 'Date Joined',
+      type: 'date',
     }),
   ],
   preview: {
