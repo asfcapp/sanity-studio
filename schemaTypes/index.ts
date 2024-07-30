@@ -8,16 +8,20 @@ import home from './home'
 import blogCategory from './blogCategory'
 import columnistCategory from './columnistCategory'
 import campagne from './campagne'
+import delit from './delit'
+import presse from './presse'
 
 export const schemaTypes = [
   home,
   roj,
   campagne,
   post,
+  delit,
   author,
   blogCategory,
   columnistCategory,
   tag,
   partenaire,
   blockContent,
+  presse
 ]

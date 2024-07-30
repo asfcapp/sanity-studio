@@ -1,4 +1,4 @@
-import {ComponentIcon} from '@sanity/icons'
+import { ComponentIcon } from '@sanity/icons';
 
 export default {
   name: 'partenaire',
@@ -24,5 +24,6 @@ export default {
       type: 'text',
       title: 'Review',
     },
+   
   ],
-}
+};
