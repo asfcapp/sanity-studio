@@ -14,9 +14,13 @@ export default defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'pdf',
-      type: 'file',
-      title: 'Ficher',
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'title',
+        maxLength: 96,
+      },
     }),
 
     defineField({
@@ -54,25 +58,28 @@ export default defineType({
           title: 'Files',
           type: 'array',
           of: [
-            defineArrayMember({
-              title: 'File',
-              name: 'file',
-              type: 'file',
-              options: {
-                accept: 'application/pdf',
-              },
-              validation: (Rule) =>
-                Rule.custom((file) => {
-                  if (file) {
-                    const fileSize = (file as unknown as File).size
-                    if (fileSize > 2 * 1024 * 1024) {
-                      // 2MB in bytes
-                      return 'File size must be 2MB or less'
-                    }
-                  }
-                  return true
-                }),
-            }),
+            {
+              name: 'fileObject',
+              title: 'File Object',
+              type: 'object',
+              fields: [
+                {
+                  name: 'fileName',
+                  title: 'File Name',
+                  type: 'string',
+                },
+                {
+                  name: 'file',
+                  title: 'File',
+                  type: 'file',
+                },
+                {
+                  name: 'author',
+                  title: 'Author',
+                  type: 'string',
+                },
+              ],
+            },
           ],
         }),
       ],
@@ -93,6 +100,35 @@ export default defineType({
           type: 'blockContent', // Assuming 'blockContent' is a defined type in your schema
           title: 'Description',
         }),
+        defineField({
+          name: 'files',
+          title: 'Files',
+          type: 'array',
+          of: [
+            {
+              name: 'fileObject',
+              title: 'File Object',
+              type: 'object',
+              fields: [
+                {
+                  name: 'fileName',
+                  title: 'File Name',
+                  type: 'string',
+                },
+                {
+                  name: 'file',
+                  title: 'File',
+                  type: 'file',
+                },
+                {
+                  name: 'author',
+                  title: 'Author',
+                  type: 'string',
+                },
+              ],
+            },
+          ],
+        }),
       ],
     }),
     defineField({
@@ -110,6 +146,35 @@ export default defineType({
           name: 'description',
           type: 'blockContent', // Assuming 'blockContent' is a defined type in your schema
           title: 'Description',
+        }),
+        defineField({
+          name: 'files',
+          title: 'Files',
+          type: 'array',
+          of: [
+            {
+              name: 'fileObject',
+              title: 'File Object',
+              type: 'object',
+              fields: [
+                {
+                  name: 'fileName',
+                  title: 'File Name',
+                  type: 'string',
+                },
+                {
+                  name: 'file',
+                  title: 'File',
+                  type: 'file',
+                },
+                {
+                  name: 'author',
+                  title: 'Author',
+                  type: 'string',
+                },
+              ],
+            },
+          ],
         }),
       ],
     }),
@@ -129,6 +194,35 @@ export default defineType({
           type: 'blockContent', // Assuming 'blockContent' is a defined type in your schema
           title: 'Description',
         }),
+        defineField({
+          name: 'files',
+          title: 'Files',
+          type: 'array',
+          of: [
+            {
+              name: 'fileObject',
+              title: 'File Object',
+              type: 'object',
+              fields: [
+                {
+                  name: 'fileName',
+                  title: 'File Name',
+                  type: 'string',
+                },
+                {
+                  name: 'file',
+                  title: 'File',
+                  type: 'file',
+                },
+                {
+                  name: 'author',
+                  title: 'Author',
+                  type: 'string',
+                },
+              ],
+            },
+          ],
+        }),
       ],
     }),
     defineField({
@@ -142,6 +236,7 @@ export default defineType({
           title: 'Titre',
           validation: (rule) => rule.required().min(5).max(100),
         }),
+
         defineField({
           name: 'policy',
           type: 'blockContent', // Assuming 'blockContent' is a defined type in your schema
@@ -151,6 +246,35 @@ export default defineType({
           name: 'etudes',
           type: 'blockContent', // Assuming 'blockContent' is a defined type in your schema
           title: 'Etudes',
+        }),
+        defineField({
+          name: 'files',
+          title: 'Files',
+          type: 'array',
+          of: [
+            {
+              name: 'fileObject',
+              title: 'File Object',
+              type: 'object',
+              fields: [
+                {
+                  name: 'fileName',
+                  title: 'File Name',
+                  type: 'string',
+                },
+                {
+                  name: 'file',
+                  title: 'File',
+                  type: 'file',
+                },
+                {
+                  name: 'author',
+                  title: 'Author',
+                  type: 'string',
+                },
+              ],
+            },
+          ],
         }),
         defineField({
           name: 'presse',
