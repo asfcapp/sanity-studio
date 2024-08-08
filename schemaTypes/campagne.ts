@@ -3,7 +3,7 @@ import {DocumentIcon} from '@sanity/icons'
 
 export default defineType({
   name: 'campagne',
-  title: 'Campagne',
+  title: 'Campagnes',
   type: 'document',
   icon: DocumentIcon,
   groups: [

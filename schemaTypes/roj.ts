@@ -72,6 +72,20 @@ export const roj = defineType({
           to: [{type: 'partenaire'}],
         }),
       ],
+      validation: (Rule) =>
+        Rule.custom((partenaires) => {
+          if (!Array.isArray(partenaires)) return true // Return true if there's no array to validate
+
+          // Define a type for the array items
+          type PartenaireReference = {
+            _ref: string
+          }
+
+          const ids = partenaires.map((p) => (p as PartenaireReference)._ref) // Cast to expected type
+          const uniqueIds = new Set(ids)
+
+          return ids.length === uniqueIds.size || 'Each partenaire must be unique'
+        }),
     }),
     // SEO Fields
     defineField({

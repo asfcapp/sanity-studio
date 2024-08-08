@@ -1,3 +1,4 @@
+// Import your schemas
 import blockContent from './blockContent'
 import post from './post'
 import author from './author'
@@ -11,9 +12,11 @@ import campagne from './campagne'
 import delit from './delit'
 import presse from './presse'
 
-export const schemaTypes = [
-  home,
-  roj,
+// Separate page schemas
+export const pageSchemas = [home, roj]
+
+// Separate other document schemas
+export const documentSchemas = [
   campagne,
   post,
   delit,
@@ -23,5 +26,8 @@ export const schemaTypes = [
   tag,
   partenaire,
   blockContent,
-  presse
+  presse,
 ]
+
+// Combine all schema types for the export
+export const schemaTypes = [...pageSchemas, ...documentSchemas]

@@ -1,46 +1,54 @@
-import {defineType, defineField, defineArrayMember} from 'sanity'
-import {DocumentIcon} from '@sanity/icons'
+import { defineType, defineField, defineArrayMember } from 'sanity'
+import { DocumentIcon } from '@sanity/icons'
 
 export default defineType({
   name: 'delit',
   title: 'Délit',
   type: 'document',
   icon: DocumentIcon,
+  groups: [
+    { name: 'content', title: 'Content Fields' },
+    { name: 'seo', title: 'SEO Fields' },
+  ],
   fields: [
     defineField({
       name: 'title',
       type: 'string',
       title: 'Titre',
+      group: 'content',
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      group: 'content',
       options: {
         source: 'title',
         maxLength: 96,
       },
     }),
-
     defineField({
       name: 'description',
       type: 'text',
       title: 'Brève description',
+      group: 'content',
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'photo',
       type: 'image',
       title: 'Photo',
+      group: 'content',
       options: {
-        hotspot: true, // Enables the user to specify the hotspot for the image
+        hotspot: true,
       },
     }),
     defineField({
       name: 'articleDeLoi',
       title: 'Article de loi',
       type: 'object',
+      group: 'content',
       fields: [
         defineField({
           name: 'title',
@@ -50,7 +58,7 @@ export default defineType({
         }),
         defineField({
           name: 'description',
-          type: 'blockContent', // Assuming 'blockContent' is a defined type in your schema
+          type: 'blockContent',
           title: 'Description',
         }),
         defineField({
@@ -88,6 +96,7 @@ export default defineType({
       name: 'explication',
       title: 'Explication',
       type: 'object',
+      group: 'content',
       fields: [
         defineField({
           name: 'title',
@@ -97,7 +106,7 @@ export default defineType({
         }),
         defineField({
           name: 'description',
-          type: 'blockContent', // Assuming 'blockContent' is a defined type in your schema
+          type: 'blockContent',
           title: 'Description',
         }),
         defineField({
@@ -135,6 +144,7 @@ export default defineType({
       name: 'dataMaroc',
       title: 'Data Maroc',
       type: 'object',
+      group: 'content',
       fields: [
         defineField({
           name: 'title',
@@ -144,7 +154,7 @@ export default defineType({
         }),
         defineField({
           name: 'description',
-          type: 'blockContent', // Assuming 'blockContent' is a defined type in your schema
+          type: 'blockContent',
           title: 'Description',
         }),
         defineField({
@@ -182,6 +192,7 @@ export default defineType({
       name: 'observation',
       title: 'Observation',
       type: 'object',
+      group: 'content',
       fields: [
         defineField({
           name: 'title',
@@ -191,7 +202,7 @@ export default defineType({
         }),
         defineField({
           name: 'description',
-          type: 'blockContent', // Assuming 'blockContent' is a defined type in your schema
+          type: 'blockContent',
           title: 'Description',
         }),
         defineField({
@@ -229,6 +240,7 @@ export default defineType({
       name: 'publication',
       title: 'Publication',
       type: 'object',
+      group: 'content',
       fields: [
         defineField({
           name: 'title',
@@ -236,15 +248,14 @@ export default defineType({
           title: 'Titre',
           validation: (rule) => rule.required().min(5).max(100),
         }),
-
         defineField({
           name: 'policy',
-          type: 'blockContent', // Assuming 'blockContent' is a defined type in your schema
+          type: 'blockContent',
           title: 'Policy Briefs',
         }),
         defineField({
           name: 'etudes',
-          type: 'blockContent', // Assuming 'blockContent' is a defined type in your schema
+          type: 'blockContent',
           title: 'Etudes',
         }),
         defineField({
@@ -278,14 +289,46 @@ export default defineType({
         }),
         defineField({
           name: 'presse',
-          type: 'array', // Assuming 'post' is a defined type in your schema
+          type: 'array',
           title: 'Communiqué de presse',
           of: [
             defineArrayMember({
               type: 'reference',
-              to: [{type: 'presse'}],
+              to: [{ type: 'presse' }],
             }),
           ],
+        }),
+      ],
+    }),
+    // SEO Fields
+    defineField({
+      name: 'seo',
+      type: 'object',
+      title: 'SEO',
+      group: 'seo',
+      fields: [
+        defineField({
+          name: 'metaTitle',
+          type: 'string',
+          title: 'Meta Title',
+          validation: (Rule) => Rule.required().max(60),
+        }),
+        defineField({
+          name: 'metaDescription',
+          type: 'text',
+          title: 'Meta Description',
+          validation: (Rule) =>
+            Rule.required()
+              .min(70)
+              .max(160)
+              .warning('Meta Description should be between 70 and 160 characters.'),
+        }),
+        defineField({
+          name: 'keywords',
+          type: 'array',
+          title: 'Keywords',
+          of: [{ type: 'string' }],
+          validation: (Rule) => Rule.unique(),
         }),
       ],
     }),
