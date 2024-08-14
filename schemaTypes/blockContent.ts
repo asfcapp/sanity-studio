@@ -1,56 +1,82 @@
-import {defineType, defineArrayMember} from 'sanity'
+import {defineType, defineArrayMember, Rule} from 'sanity'
 
-/**
- * This is the schema definition for the rich text fields used for
- * this blog studio. When you import it in schemas.js it can be
- * reused in other parts of the studio with:
- *  {
- *    name: 'someName',
- *    title: 'Some title',
- *    type: 'blockContent'
- *  }
- */
+// 1. Define Reusable Block Styles (e.g., Normal, H1, H2)
+const blockStyles = [
+  {title: 'Normal', value: 'normal'},
+  {title: 'H1', value: 'h1'},
+  {title: 'H2', value: 'h2'},
+  {title: 'H3', value: 'h3'},
+  {title: 'H4', value: 'h4'},
+  {title: 'Quote', value: 'blockquote'},
+]
+
+// 2. Define Reusable Block Lists (e.g., Bullet, Numbered)
+const blockLists = [
+  {title: 'Bullet', value: 'bullet'},
+  {title: 'Numbered', value: 'numbered'},
+]
+
+// 3. Define Reusable Block Decorators (e.g., Strong, Emphasis)
+// Todo to be extended based on UX needs
+const blockDecorators = [
+  {title: 'Strong', value: 'strong'},
+  {title: 'Emphasis', value: 'em'},
+]
+
+// 4. Define Reusable Link Annotation (for hyperlinks)
+const internalLinkAnnotation = {
+  title: 'Lien interne',
+  name: 'internalLink',
+  type: 'object',
+  fields: [
+    {
+      title: 'Page',
+      name: 'reference',
+      type: 'reference',
+      to: [{type: 'page'}], // Replace 'page' with the type of your page
+    },
+  ],
+}
+
+const externalLinkAnnotation = {
+  title: 'Lien externe',
+  name: 'externalLink',
+  type: 'object',
+  fields: [
+    {
+      title: 'URL',
+      name: 'href',
+      type: 'url',
+      validation: (rule: Rule) => rule.required(), // Explicitly define the Rule type
+    },
+  ],
+}
+
+// 5. Define a Source Annotation (for attributing content)
+const sourceAnnotation = {
+  title: 'Source',
+  name: 'source',
+  type: 'object',
+  fields: [
+    {name: 'text', type: 'string', title: 'Source text'},
+    {name: 'url', type: 'url', title: 'Source URL'},
+  ],
+}
+
+// 7. Block Content Schema
 export default defineType({
-  title: 'Block Content',
   name: 'blockContent',
+  title: 'Block Content',
   type: 'array',
   of: [
     defineArrayMember({
       title: 'Block',
       type: 'block',
-      styles: [
-        {title: 'Normal', value: 'normal'},
-        {title: 'H1', value: 'h1'},
-        {title: 'H2', value: 'h2'},
-        {title: 'H3', value: 'h3'},
-        {title: 'H4', value: 'h4'},
-        {title: 'H5', value: 'h5'},
-        {title: 'H6', value: 'h6'},
-        {title: 'Quote', value: 'blockquote'},
-      ],
-      lists: [
-        {title: 'Bullet', value: 'bullet'},
-        {title: 'Number', value: 'number'},
-      ],
+      styles: blockStyles,
+      lists: blockLists,
       marks: {
-        decorators: [
-          {title: 'Strong', value: 'strong'},
-          {title: 'Emphasis', value: 'em'},
-        ],
-        annotations: [
-          {
-            title: 'URL',
-            name: 'link',
-            type: 'object',
-            fields: [
-              {
-                title: 'URL',
-                name: 'href',
-                type: 'url',
-              },
-            ],
-          },
-        ],
+        decorators: blockDecorators,
+        annotations: [internalLinkAnnotation, externalLinkAnnotation, sourceAnnotation], // Add source annotation here
       },
     }),
     defineArrayMember({
@@ -60,13 +86,11 @@ export default defineType({
       fields: [
         {
           name: 'image',
-          type: 'image',
-          options: {hotspot: true},
+          type: 'reference',
+          to: [{type: 'image'}],
         },
-        {
-          name: 'caption',
-          type: 'string',
-        },
+        {name: 'caption', title: 'Caption', type: 'string'},
+        {name: 'alt', title: 'Alternative text', type: 'string'},
       ],
     }),
   ],

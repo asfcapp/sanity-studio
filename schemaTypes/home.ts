@@ -1,7 +1,8 @@
 import {HomeIcon} from '@sanity/icons'
 import {defineField} from 'sanity'
 
-export default {
+
+export default ({
   name: 'home',
   type: 'document',
   title: 'Home',
@@ -11,144 +12,89 @@ export default {
     {name: 'seo', title: 'SEO Fields'},
   ],
   fields: [
-    // Content Fields
-    {
-      name: 'sectionTitle',
+    // Title and Slug
+    defineField({
+      name: 'title',
       type: 'string',
-      title: 'Section Title',
+      title: 'Title',
       group: 'content',
-      validation: (Rule: {
-        required: () => {
-          (): any
-          new (): any
-          min: {
-            (arg0: number): {(): any; new (): any; max: {(arg0: number): any; new (): any}}
-            new (): any
-          }
-        }
-      }) => Rule.required().min(5).max(100),
-    },
-    {
+      validation: (Rule) => Rule.required().min(5).max(100),
+    }),
+    defineField({
       name: 'slug',
       type: 'slug',
       title: 'Slug',
-      description: 'The unique identifier for this page. This is used in the URL.',
+      options: {source: 'title'},
+      validation: (Rule) => Rule.required().error('Required to generate a page on the site'),
       group: 'content',
-      options: {
-        source: 'sectionTitle',
-        maxLength: 96,
-      },
-      validation: (Rule: {required: () => any}) => Rule.required(),
-    },
-    {
-      name: 'about',
+    }),
+    defineField({
+      name: 'subtitle',
       type: 'string',
-      title: 'About',
+      title: 'Subtitle',
       group: 'content',
-      validation: (Rule: {
-        required: () => {
-          (): any
-          new (): any
-          min: {
-            (arg0: number): {(): any; new (): any; max: {(arg0: number): any; new (): any}}
-            new (): any
-          }
-        }
-      }) => Rule.required().min(10).max(200),
-    },
-    {
-      name: 'aboutdescription',
-      type: 'text',
-      title: 'About Description',
-      group: 'content',
-      validation: (Rule: {
-        required: () => {
-          (): any
-          new (): any
-          min: {
-            (arg0: number): {(): any; new (): any; max: {(arg0: number): any; new (): any}}
-            new (): any
-          }
-        }
-      }) => Rule.required().min(50).max(500),
-    },
-    {
-      name: 'rows',
+      validation: (Rule) => Rule.max(200),
+    }),
+
+    // Generic Sections
+    defineField({
+      name: 'sections',
       type: 'array',
-      title: 'Rows',
+      title: 'Sections',
       group: 'content',
       of: [
-        {
+        defineField({
+          name: 'section',
           type: 'object',
-          name: 'aboutList',
-          title: 'About List',
+          title: 'Section',
           fields: [
-            {
-              name: 'title',
+            defineField({
+              name: 'sectionTitle',
               type: 'string',
-              title: 'Title',
-              validation: (Rule: {
-                required: () => {
-                  (): any
-                  new (): any
-                  min: {
-                    (arg0: number): {(): any; new (): any; max: {(arg0: number): any; new (): any}}
-                    new (): any
-                  }
-                }
-              }) => Rule.required().min(5).max(100),
-            },
-            {
-              name: 'content',
-              type: 'text',
-              title: 'Content',
-              validation: (Rule: {
-                required: () => {
-                  (): any
-                  new (): any
-                  min: {
-                    (arg0: number): {(): any; new (): any; max: {(arg0: number): any; new (): any}}
-                    new (): any
-                  }
-                }
-              }) => Rule.required().min(10).max(300),
-            },
+              title: 'Section Title',
+              validation: (Rule) => Rule.required().min(5).max(100),
+            }),
+            defineField({
+              name: 'sectionSubTitle',
+              type: 'string',
+              title: 'Section Subtitle',
+              validation: (Rule) => Rule.max(200),
+            }),
+            defineField({
+              name: 'sectionDescription',
+              type: 'blockContent',
+              title: 'Section Description',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'subsections',
+              type: 'array',
+              title: 'Subsections',
+              of: [
+                defineField({
+                  name: 'subsection',
+                  type: 'object',
+                  title: 'Subsection',
+                  fields: [
+                    defineField({
+                      name: 'title',
+                      type: 'string',
+                      title: 'Subsection Title',
+                      validation: (Rule) => Rule.required().min(5).max(100),
+                    }),
+                    defineField({
+                      name: 'description',
+                      type: 'text',
+                      title: 'Subsection Description',
+                      validation: (Rule) => Rule.required().min(50).max(500),
+                    }),
+                  ],
+                }),
+              ],
+            }),
           ],
-        },
-      ],
-    },
-
-    // SEO Fields
-    {
-      name: 'seo',
-      type: 'object',
-      title: 'SEO',
-      group: 'seo',
-      fields: [
-        defineField({
-          name: 'metaTitle',
-          type: 'string',
-          title: 'Meta Title',
-          validation: (Rule) => Rule.required().max(60),
-        }),
-        defineField({
-          name: 'metaDescription',
-          type: 'text',
-          title: 'Meta Description',
-          validation: (Rule) =>
-            Rule.required()
-              .min(70)
-              .max(160)
-              .warning('Meta Description should be between 70 and 160 characters.'),
-        }),
-        defineField({
-          name: 'keywords',
-          type: 'array',
-          title: 'Keywords',
-          of: [{type: 'string'}],
-          validation: (Rule) => Rule.unique(),
         }),
       ],
-    },
+    }),
   ],
-}
+});
