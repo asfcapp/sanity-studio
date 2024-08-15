@@ -10,13 +10,13 @@ export default defineType({
       name: 'title',
       title: 'SEO Title',
       type: 'string',
-      // Add validation for maximum length (e.g., 60 characters)
+      // Add validation for maximum and minimum length (e.g., 60 characters)
     },
     {
       name: 'description',
       title: 'Meta Description',
       type: 'text',
-      // Add validation for maximum length (e.g., 150-160 characters)
+      // Add validation for maximum and minimum length (e.g., 150-160 characters)
     },
     {
       name: 'slug',
@@ -155,18 +155,6 @@ export default defineType({
           // Add other directives as needed
         ],
       },
-    },
-    // Additional fields (customize as needed)
-    {
-      name: 'publishedAt',
-      title: 'Published At',
-      type: 'datetime',
-    },// Normallywe have this field in content.js (let's keep it while this)
-    {
-      name: 'author',
-      title: 'Author',
-      type: 'reference',
-      to: [{ type: 'author' }], // Assuming an 'author' schema
     },
     {
       name: 'categories',
