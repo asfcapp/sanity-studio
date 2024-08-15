@@ -1,5 +1,5 @@
-import {defineType} from 'sanity'
-import {slugify} from '../utils/slugify' // Importez votre fonction slugify personnalisée
+import { defineType } from 'sanity'
+import { slugify } from '../utils/slugify' // Import custom function to format SEO friendly URLs
 
 export default defineType({
   name: 'seo',
@@ -10,11 +10,13 @@ export default defineType({
       name: 'title',
       title: 'SEO Title',
       type: 'string',
+      // Add validation for maximum length (e.g., 60 characters)
     },
     {
       name: 'description',
       title: 'Meta Description',
       type: 'text',
+      // Add validation for maximum length (e.g., 150-160 characters)
     },
     {
       name: 'slug',
@@ -23,23 +25,24 @@ export default defineType({
       options: {
         source: 'title',
         maxLength: 96,
-        slugify: (input) => slugify(input), // Utilise la fonction slugify personnalisée
+        slugify: (input) => slugify(input), // Use custom slugify function
       },
     },
     {
       name: 'keywords',
       title: 'Keywords',
       type: 'array',
-      of: [{type: 'string'}],
+      of: [{ type: 'string' }],
+      // Consider adding a validation for maximum number of keywords
     },
     {
       name: 'image',
       title: 'SEO Image',
-      type: 'reference',
-      to: [{type: 'image'}],
+      type: 'image',
       options: {
         hotspot: true,
       },
+      // Add validation for image dimensions (e.g., minimum width and height)
     },
     {
       name: 'openGraph',
@@ -50,22 +53,25 @@ export default defineType({
           name: 'title',
           title: 'Title',
           type: 'string',
+          // Consider inheriting from SEO title if not overridden
         },
         {
           name: 'description',
           title: 'Description',
           type: 'text',
+          // Consider inheriting from meta description if not overridden
         },
         {
           name: 'image',
           title: 'Image',
           type: 'reference',
-          to: [{type: 'image'}],
+          to: [{ type: 'image' }],
         },
         {
           name: 'url',
           title: 'URL',
           type: 'url',
+          // Consider using a computed field based on the document's URL
         },
       ],
     },
@@ -78,17 +84,19 @@ export default defineType({
           name: 'title',
           title: 'Twitter Title',
           type: 'string',
+          // Consider inheriting from SEO title or Open Graph title if not overridden
         },
         {
           name: 'description',
           title: 'Twitter Description',
           type: 'text',
+          // Consider inheriting from meta description or Open Graph description if not overridden
         },
         {
           name: 'image',
           title: 'Twitter Image',
           type: 'reference',
-          to: [{type: 'image'}],
+          to: [{ type: 'image' }],
         },
         {
           name: 'cardType',
@@ -96,11 +104,11 @@ export default defineType({
           type: 'string',
           options: {
             list: [
-              {title: 'Summary', value: 'summary'},
-              {title: 'Summary with Large Image', value: 'summary_large_image'},
-              {title: 'Photo', value: 'photo'},
-              {title: 'Video', value: 'video'},
-              {title: 'Gallery', value: 'gallery'},
+              { title: 'Summary', value: 'summary' },
+              { title: 'Summary with Large Image', value: 'summary_large_image' },
+              { title: 'Photo', value: 'photo' },
+              { title: 'Video', value: 'video' },
+              { title: 'Gallery', value: 'gallery' },
             ],
           },
         },
@@ -137,18 +145,18 @@ export default defineType({
       name: 'robots',
       title: 'Robots Directives',
       type: 'array',
-      of: [{type: 'string'}],
+      of: [{ type: 'string' }],
       options: {
         list: [
-          {title: 'Index', value: 'index'},
-          {title: 'Noindex', value: 'noindex'},
-          {title: 'Follow', value: 'follow'},
-          {title: 'Nofollow', value: 'nofollow'},
+          { title: 'Index', value: 'index' },
+          { title: 'Noindex', value: 'noindex' },
+          { title: 'Follow', value: 'follow' },
+          { title: 'Nofollow', value: 'nofollow' },
           // Add other directives as needed
         ],
       },
     },
-    // Champs supplémentaires (à personnaliser)
+    // Additional fields (customize as needed)
     {
       name: 'publishedAt',
       title: 'Published At',
@@ -158,13 +166,13 @@ export default defineType({
       name: 'author',
       title: 'Author',
       type: 'reference',
-      to: [{type: 'author'}], // Supposons un schéma 'author'
+      to: [{ type: 'author' }], // Assuming an 'author' schema
     },
     {
       name: 'categories',
       title: 'Categories',
       type: 'array',
-      of: [{type: 'reference', to: {type: 'category'}}], // Supposons un schéma 'category'
+      of: [{ type: 'reference', to: { type: 'category' } }], // Assuming a 'category' schema
     },
   ],
 })
