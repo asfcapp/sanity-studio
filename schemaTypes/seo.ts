@@ -161,7 +161,7 @@ export default defineType({
       name: 'publishedAt',
       title: 'Published At',
       type: 'datetime',
-    },
+    },// Normallywe have this field in content.js (let's keep it while this)
     {
       name: 'author',
       title: 'Author',
