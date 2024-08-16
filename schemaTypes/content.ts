@@ -1,126 +1,81 @@
-import {defineField, defineType} from 'sanity'
+import {defineType} from 'sanity'
 import {AddDocumentIcon} from '@sanity/icons'
 
 export default defineType({
-  name: 'post',
-  title: 'Post',
+  name: 'content',
+  title: 'Contenu',
   type: 'document',
   icon: AddDocumentIcon,
-  groups: [
-    {name: 'content', title: 'Content Fields'},
-    {name: 'seo', title: 'SEO Fields'},
-  ],
   fields: [
-    defineField({
+    {
       name: 'title',
-      title: 'Title',
+      title: 'Titre du contenu',
       type: 'string',
-      group: 'content',
-    }),
-    defineField({
+      validation: (Rule) => Rule.required().min(10).max(80),
+    },
+    {
       name: 'slug',
-      title: 'Slug',
+      title: "Slug pour l'URL",
       type: 'slug',
-      group: 'content',
       options: {
         source: 'title',
         maxLength: 96,
       },
-    }),
-    defineField({
-      name: 'author',
-      title: 'Author',
-      type: 'reference',
-      group: 'content',
-      to: {type: 'author'},
-    }),
-    defineField({
-      name: 'mainImage',
-      title: 'Main image',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'body',
+      title: 'Contenu',
+      type: 'blockContent',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'excerpt',
+      title: 'Extrait',
+      type: 'text',
+      rows: 4,
+      validation: (Rule) => Rule.max(200),
+    },
+    {
+      name: 'status',
+      title: 'Statut',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'Brouillon', value: 'draft'},
+          {title: 'Publié', value: 'published'},
+          {title: 'Archivé', value: 'archived'},
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'draft',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'featuredImage',
+      title: 'Image principale',
       type: 'image',
-      group: 'content',
       options: {
         hotspot: true,
       },
-    }),
-    defineField({
-      name: 'body',
-      title: 'Body',
-      group: 'content',
-      type: 'blockContent',
-    }),
-    defineField({
-      name: 'publishedAt',
-      title: 'Published at',
-      group: 'content',
-      type: 'datetime',
-    }),
-    defineField({
-      name: 'blogCategory',
-      title: 'Blog categories',
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'author',
+      title: 'Auteur',
+      type: 'reference',
+      to: [{type: 'author'}],
+    },
+    {
+      name: 'tags',
+      title: 'Tags',
       type: 'array',
-      group: 'content',
-      of: [{type: 'reference', to: {type: 'blogCategory'}}],
-    }),
-    defineField({
-      name: 'columnistCategory',
-      title: 'Columnist categories',
-      type: 'array',
-      group: 'content',
-      of: [{type: 'reference', to: {type: 'tag'}}],
-    }),
-
-    defineField({
-      name: 'displayOnHomePage',
-      title: 'Display on Home Page',
-      type: 'boolean',
-      group: 'content',
-      description: 'Check this box if you want this post to be displayed on the home page.',
-    }),
-
-    // SEO Fields
-    defineField({
-      name: 'seo',
-      type: 'object',
-      title: 'SEO',
-      group: 'seo',
-      fields: [
-        defineField({
-          name: 'metaTitle',
-          type: 'string',
-          title: 'Meta Title',
-          validation: (Rule) => Rule.required().max(60),
-        }),
-        defineField({
-          name: 'metaDescription',
-          type: 'text',
-          title: 'Meta Description',
-          validation: (Rule) =>
-            Rule.required()
-              .min(70)
-              .max(160)
-              .warning('Meta Description should be between 70 and 160 characters.'),
-        }),
-        defineField({
-          name: 'keywords',
-          type: 'array',
-          title: 'Keywords',
-          of: [{type: 'string'}],
-          validation: (Rule) => Rule.unique(),
-        }),
+      of: [
+        {
+          type: 'reference',
+          to: [{type: 'tag'}],
+        },
       ],
-    }),
+    },
   ],
-
-  preview: {
-    select: {
-      title: 'title',
-      author: 'author.name',
-      media: 'mainImage',
-    },
-    prepare(selection) {
-      const {author} = selection
-      return {...selection, subtitle: author && `by ${author}`}
-    },
-  },
 })

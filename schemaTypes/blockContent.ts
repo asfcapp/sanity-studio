@@ -89,8 +89,6 @@ export default defineType({
           type: 'reference',
           to: [{type: 'image'}],
         },
-        {name: 'caption', title: 'Caption', type: 'string'},
-        {name: 'alt', title: 'Alternative text', type: 'string'},
       ],
     }),
   ],

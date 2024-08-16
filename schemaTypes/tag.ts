@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import {defineType} from 'sanity'
 import {TagsIcon} from '@sanity/icons'
 
 export default defineType({
@@ -7,10 +7,26 @@ export default defineType({
   type: 'document',
   icon: TagsIcon,
   fields: [
-    defineField({
+    {
       name: 'title',
-      title: 'Title',
       type: 'string',
-    }),
+      title: 'Title',
+      validation: (Rule) => Rule.required().min(3).max(50),
+    },
+    {
+      name: 'slug',
+      type: 'slug',
+      title: 'Slug',
+      description: 'A generated slug based on the title.',
+      options: {
+        source: 'title',
+      },
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: 'description',
+      type: 'text',
+      title: 'Description',
+    },
   ],
 })
