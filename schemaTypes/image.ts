@@ -5,7 +5,7 @@ export default defineType({
   title: 'Image',
   type: 'image',
   options: {
-    hotspot: false, // We have to Enable hotspot functionality for  partners (To be discussed later)
+    hotspot: false, //May be we can need this plugin later, depending on UX needs
   },
   fields: [
     {
