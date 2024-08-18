@@ -27,7 +27,7 @@ export default defineType({
       name: 'partenaires',
       title: 'Partenaires',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'partenaire' }] }],
+      of: [{ type: 'reference', to: [{ type: 'partners' }] }],
       // An array of references to Partner documents.
       // This allows for linking multiple partners to the campaign, enabling flexible and reusable partner associations.
     },
