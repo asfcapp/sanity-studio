@@ -1,336 +1,41 @@
-import { defineType, defineField, defineArrayMember } from 'sanity'
-import { DocumentIcon } from '@sanity/icons'
+// **Document Type: Infraction (Offense)**
 
-export default defineType({
-  name: 'delit',
-  title: 'Délit',
-  type: 'document',
-  icon: DocumentIcon,
-  groups: [
-    { name: 'content', title: 'Content Fields' },
-    { name: 'seo', title: 'SEO Fields' },
-  ],
+export default {
+  name: "infraction", // **Crucial for Normalization: Unique Document Identifier**
+  // A unique identifier for each offense document ensures distinct identities, making it easier to manage and reference specific offenses.
+
+  title: "Infraction",
+  type: "document",
   fields: [
-    defineField({
-      name: 'title',
-      type: 'string',
-      title: 'Titre',
-      group: 'content',
+    {
+      name: "nom", // **Crucial for Normalization: Unique Offense Name**
+      // A unique offense name helps distinguish individual offenses and provides a clear name for referencing and identifying offenses.
+
+      type: "string",
+      title: "Nom de l'Infraction", // Offense Name
       validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      group: 'content',
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
-    }),
-    defineField({
-      name: 'description',
-      type: 'text',
-      title: 'Brève description',
-      group: 'content',
+    },
+    {
+      name: "description",
+      type: "text",
+      title: "Détails de l'Infraction", // Details of the Offense
       validation: (rule) => rule.required(),
-    }),
-    defineField({
-      name: 'photo',
-      type: 'image',
-      title: 'Photo',
-      group: 'content',
-      options: {
-        hotspot: true,
-      },
-    }),
-    defineField({
-      name: 'articleDeLoi',
-      title: 'Article de loi',
-      type: 'object',
-      group: 'content',
+    },
+    {
+      name: "loi", // **Crucial for Modularization: Reusable Law Reference**
+      // By using a reference to the relevant law document, you can reuse law information across multiple offenses, reducing redundancy and improving data management.
+
+      type: "reference",
+      to: [{ type: "loi" }],
+      title: "Loi", // Law
+      description: "Référence au document de Loi pertinent", // Reference to the relevant Law document
+    },
+    {
+      name: "donnees", // **Crucial for Modularization: Encapsulated Offense Data**
+      // Encapsulating offense data within a dedicated object promotes modularity by grouping related data together, making it easier to manage and access offense-specific information.
+
+      type: "object",
+      title: "Données de l'Infraction", // Offense Data
       fields: [
-        defineField({
-          name: 'title',
-          type: 'string',
-          title: 'Titre',
-          validation: (rule) => rule.required().min(5).max(100),
-        }),
-        defineField({
-          name: 'description',
-          type: 'blockContent',
-          title: 'Description',
-        }),
-        defineField({
-          name: 'files',
-          title: 'Files',
-          type: 'array',
-          of: [
-            {
-              name: 'fileObject',
-              title: 'File Object',
-              type: 'object',
-              fields: [
-                {
-                  name: 'fileName',
-                  title: 'File Name',
-                  type: 'string',
-                },
-                {
-                  name: 'file',
-                  title: 'File',
-                  type: 'file',
-                },
-                {
-                  name: 'author',
-                  title: 'Author',
-                  type: 'string',
-                },
-              ],
-            },
-          ],
-        }),
-      ],
-    }),
-    defineField({
-      name: 'explication',
-      title: 'Explication',
-      type: 'object',
-      group: 'content',
-      fields: [
-        defineField({
-          name: 'title',
-          type: 'string',
-          title: 'Titre',
-          validation: (rule) => rule.required().min(5).max(100),
-        }),
-        defineField({
-          name: 'description',
-          type: 'blockContent',
-          title: 'Description',
-        }),
-        defineField({
-          name: 'files',
-          title: 'Files',
-          type: 'array',
-          of: [
-            {
-              name: 'fileObject',
-              title: 'File Object',
-              type: 'object',
-              fields: [
-                {
-                  name: 'fileName',
-                  title: 'File Name',
-                  type: 'string',
-                },
-                {
-                  name: 'file',
-                  title: 'File',
-                  type: 'file',
-                },
-                {
-                  name: 'author',
-                  title: 'Author',
-                  type: 'string',
-                },
-              ],
-            },
-          ],
-        }),
-      ],
-    }),
-    defineField({
-      name: 'dataMaroc',
-      title: 'Data Maroc',
-      type: 'object',
-      group: 'content',
-      fields: [
-        defineField({
-          name: 'title',
-          type: 'string',
-          title: 'Titre',
-          validation: (rule) => rule.required().min(5).max(100),
-        }),
-        defineField({
-          name: 'description',
-          type: 'blockContent',
-          title: 'Description',
-        }),
-        defineField({
-          name: 'files',
-          title: 'Files',
-          type: 'array',
-          of: [
-            {
-              name: 'fileObject',
-              title: 'File Object',
-              type: 'object',
-              fields: [
-                {
-                  name: 'fileName',
-                  title: 'File Name',
-                  type: 'string',
-                },
-                {
-                  name: 'file',
-                  title: 'File',
-                  type: 'file',
-                },
-                {
-                  name: 'author',
-                  title: 'Author',
-                  type: 'string',
-                },
-              ],
-            },
-          ],
-        }),
-      ],
-    }),
-    defineField({
-      name: 'observation',
-      title: 'Observation',
-      type: 'object',
-      group: 'content',
-      fields: [
-        defineField({
-          name: 'title',
-          type: 'string',
-          title: 'Titre',
-          validation: (rule) => rule.required().min(5).max(100),
-        }),
-        defineField({
-          name: 'description',
-          type: 'blockContent',
-          title: 'Description',
-        }),
-        defineField({
-          name: 'files',
-          title: 'Files',
-          type: 'array',
-          of: [
-            {
-              name: 'fileObject',
-              title: 'File Object',
-              type: 'object',
-              fields: [
-                {
-                  name: 'fileName',
-                  title: 'File Name',
-                  type: 'string',
-                },
-                {
-                  name: 'file',
-                  title: 'File',
-                  type: 'file',
-                },
-                {
-                  name: 'author',
-                  title: 'Author',
-                  type: 'string',
-                },
-              ],
-            },
-          ],
-        }),
-      ],
-    }),
-    defineField({
-      name: 'publication',
-      title: 'Publication',
-      type: 'object',
-      group: 'content',
-      fields: [
-        defineField({
-          name: 'title',
-          type: 'string',
-          title: 'Titre',
-          validation: (rule) => rule.required().min(5).max(100),
-        }),
-        defineField({
-          name: 'policy',
-          type: 'blockContent',
-          title: 'Policy Briefs',
-        }),
-        defineField({
-          name: 'etudes',
-          type: 'blockContent',
-          title: 'Etudes',
-        }),
-        defineField({
-          name: 'files',
-          title: 'Files',
-          type: 'array',
-          of: [
-            {
-              name: 'fileObject',
-              title: 'File Object',
-              type: 'object',
-              fields: [
-                {
-                  name: 'fileName',
-                  title: 'File Name',
-                  type: 'string',
-                },
-                {
-                  name: 'file',
-                  title: 'File',
-                  type: 'file',
-                },
-                {
-                  name: 'author',
-                  title: 'Author',
-                  type: 'string',
-                },
-              ],
-            },
-          ],
-        }),
-        defineField({
-          name: 'presse',
-          type: 'array',
-          title: 'Communiqué de presse',
-          of: [
-            defineArrayMember({
-              type: 'reference',
-              to: [{ type: 'presse' }],
-            }),
-          ],
-        }),
-      ],
-    }),
-    // SEO Fields
-    defineField({
-      name: 'seo',
-      type: 'object',
-      title: 'SEO',
-      group: 'seo',
-      fields: [
-        defineField({
-          name: 'metaTitle',
-          type: 'string',
-          title: 'Meta Title',
-          validation: (Rule) => Rule.required().max(60),
-        }),
-        defineField({
-          name: 'metaDescription',
-          type: 'text',
-          title: 'Meta Description',
-          validation: (Rule) =>
-            Rule.required()
-              .min(70)
-              .max(160)
-              .warning('Meta Description should be between 70 and 160 characters.'),
-        }),
-        defineField({
-          name: 'keywords',
-          type: 'array',
-          title: 'Keywords',
-          of: [{ type: 'string' }],
-          validation: (Rule) => Rule.unique(),
-        }),
-      ],
-    }),
-  ],
-})
+        // Ajouter des champs pour les métriques clés de l'infraction (ex: statistiques
+
