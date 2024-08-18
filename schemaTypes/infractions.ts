@@ -43,7 +43,7 @@ export default defineType({
       name: 'campaign',
       title: 'Campaign',
       type: 'reference',
-      to: [{ type: 'campagne' }],
+      to: [{ type: 'campaign' }],
       // The campaign to which this infraction belongs
     },
   ],
