@@ -1,73 +1,69 @@
-// partnerReference.js
-export default {
-  name: 'partnerReference',
-  type: 'document',
-  title: 'Partner Reference',
-  fields: [
-    // ... fields for partner information
-  ],
-};
+import { defineType } from 'sanity';
+import content from './content'; // Importing the content schema
 
-// A generic partner document. ROJ and Campaign schemas will specify if they need this partner.
-
-// roj.js
-export default {
-  name: 'roj',
+// Define the Partner document type
+export default defineType({
+  // Document type information
+  name: 'partner',
+  title: 'Partner',
   type: 'document',
-  title: 'ROJ',
+
+  // Document fields
   fields: [
+    // Inherit all fields from the content schema
+    ...content.fields,
+
+    // Specific fields for Partner documents
     {
-      name: 'partners',
+      // Partner type selection
+      name: 'partnerType',
+      title: 'Partner Type',
       type: 'array',
-      title: 'Partners',
-      of: [{ type: 'reference', to: { type: 'partnerReference' } }],
-      // A ROJ can have multiple partners.
-    },
-    // ... other ROJ fields
-  ],
-};
+      of: [{ type: 'string' }], // Array of strings
+      options: {
+        list: ['ROJ', 'Campaign'], // Predefined options for selection
+        layout: 'radio', // Display options as radio buttons
+      },
+      initialValue: [], // Set an empty array as the default value
+      validation: (Rule) =>
+        Rule.required() // Partner type is required
+          .min(1) // Minimum of 1 selection
+          .max(2) // Maximum of 2 selections
+          .custom((value, context) => {
+            // Check for duplicate partner names
+            const existingPartners = context.document.parent.children.filter(
+              (child) => child.type === 'partner' && child._id !== context.document._id
+            );
 
-// campaign.js
-export default {
-  name: 'campaign',
-  type: 'document',
-  title: 'Campaign',
-  fields: [
+            const existingPartnerWithSameName = existingPartners.find(
+              (partner) => partner.name === value
+            );
+
+            if (existingPartnerWithSameName) {
+              return 'A partner with this name already exists.';
+            }
+
+            return true;
+          }),
+    },
     {
-      name: 'partners',
-      type: 'array',
-      title: 'Partners',
-      of: [{ type: 'reference', to: { type: 'partnerReference' } }],
-      // A campaign can have multiple partners.
+      // Partner name field
+      name: 'name',
+      title: 'Partner Name',
+      type: 'string',
+      validation: (Rule) => Rule.required(), // Partner name is required
     },
-    // ... other campaign fields
+    {
+      // Slug generation based on partner name
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      options: {
+        source: 'name', // Generate slug from the partner name
+        maxLength: 96, // Optional: Set a maximum slug length (default is 128)
+        isUnique: true, // Ensure unique slugs for partners
+      },
+    },
+    // ... other partner-specific fields can be added here
   ],
-};
-
-// Example of how ROJ and Campaign might use partnerReference:
-
-// ROJ:
-// {
-//   name: "ROJ 1",
-//   partners: [
-//     {
-//       _ref: "partnerReferenceId1" // Reference to a specific partner
-//     },
-//     {
-//       _ref: "partnerReferenceId2" // Reference to another partner
-//     }
-//   ]
-// }
-
-// Campaign:
-// {
-//   name: "Campaign A",
-//   partners: [
-//     {
-//       _ref: "partnerReferenceId2" // Reference to a partner also used in ROJ 1
-//     },
-//     {
-//       _ref: "partnerReferenceId3" // Reference to a different partner
-//     }
-//   ]
-// }
+});
