@@ -1,41 +1,50 @@
-// **Document Type: Infraction (Offense)**
+import { defineType } from 'sanity';
 
-export default {
-  name: "infraction", // **Crucial for Normalization: Unique Document Identifier**
-  // A unique identifier for each offense document ensures distinct identities, making it easier to manage and reference specific offenses.
-
-  title: "Infraction",
-  type: "document",
+export default defineType({
+  name: 'infraction',
+  title: 'Infraction',
+  type: 'document',
   fields: [
     {
-      name: "nom", // **Crucial for Normalization: Unique Offense Name**
-      // A unique offense name helps distinguish individual offenses and provides a clear name for referencing and identifying offenses.
-
-      type: "string",
-      title: "Nom de l'Infraction", // Offense Name
-      validation: (rule) => rule.required(),
+      name: 'offenseName',
+      title: 'Offense Name',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+      // Unique identifier for the offense
     },
     {
-      name: "description",
-      type: "text",
-      title: "Détails de l'Infraction", // Details of the Offense
-      validation: (rule) => rule.required(),
+      name: 'briefDescription',
+      title: 'Brief Description',
+      type: 'text',
+      validation: (Rule) => Rule.required(),
+      // Concise explanation of the offense
     },
     {
-      name: "loi", // **Crucial for Modularization: Reusable Law Reference**
-      // By using a reference to the relevant law document, you can reuse law information across multiple offenses, reducing redundancy and improving data management.
-
-      type: "reference",
-      to: [{ type: "loi" }],
-      title: "Loi", // Law
-      description: "Référence au document de Loi pertinent", // Reference to the relevant Law document
+      name: 'lawArticle',
+      title: 'Law Article',
+      type: 'string',
+      // Reference to the relevant article in the legal code
     },
     {
-      name: "donnees", // **Crucial for Modularization: Encapsulated Offense Data**
-      // Encapsulating offense data within a dedicated object promotes modularity by grouping related data together, making it easier to manage and access offense-specific information.
-
-      type: "object",
-      title: "Données de l'Infraction", // Offense Data
-      fields: [
-        // Ajouter des champs pour les métriques clés de l'infraction (ex: statistiques
-
+      name: 'moroccanData',
+      title: 'Moroccan Data',
+      type: 'array',
+      of: [{ type: 'string' }], // Adjust the type based on the specific data you need
+      // Specific data related to the offense within the Moroccan context
+    },
+    {
+      name: 'publications',
+      title: 'Publications',
+      type: 'array',
+      of: [{ type: 'file' }], // Adjust the type to 'reference' if you want to reference existing publication documents
+      // Relevant documents (like PDFs) related to the offense
+    },
+    {
+      name: 'campaign',
+      title: 'Campaign',
+      type: 'reference',
+      to: [{ type: 'campagne' }],
+      // The campaign to which this infraction belongs
+    },
+  ],
+});
