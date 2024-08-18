@@ -9,7 +9,9 @@ export default defineType({
   type: 'document',
   icon: AddDocumentIcon,
   fields: [
-    // Inherit common fields from the content schema
+    // Inherit fields from the content schema, allowing for selective inheritance.
+    // This means we can choose exactly which fields from 'content' we want to include in this schema.
+    //This means also we can customize/add new fields even if they are not in content.ts (LSP principle)
     ...content.fields,
 
     // Campaign-specific fields
