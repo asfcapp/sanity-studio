@@ -1,11 +1,11 @@
-import { defineType, ComponentIcon } from 'sanity'
+import { defineType, ComponentIcon } from 'sanity';
 
 export default defineType({
   name: 'image',
   title: 'Image',
   type: 'image',
   options: {
-    hotspot: false, //May be we can need this plugin later, depending on UX needs
+    hotspot: false, // May be we can need this plugin later, depending on UX needs
   },
   fields: [
     {
@@ -55,5 +55,12 @@ export default defineType({
       // Use a built-in icon from @sanity/icons
       icon: ComponentIcon.Image,
     },
+    {
+      name: 'isCoverImage',
+      type: 'boolean',
+      title: 'Is Cover Image',
+      description: 'If checked, this image will be used as the cover image for the associated content.',
+      defaultValue: false, // Default to false to avoid accidentally setting all images as cover images
+    },
   ],
-})
+});
