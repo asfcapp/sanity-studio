@@ -10,41 +10,24 @@ export default defineType({
 
   // Document fields
   fields: [
-    // Inherit all fields from the content schema
+    // Inherit needed  fields from the content schema
     ...content.fields,
 
     // Specific fields for Partner documents
     {
-      // Partner type selection
+      // Partner type selection - using checkboxes for multiple selections
       name: 'partnerType',
       title: 'Partner Type',
-      type: 'array',
-      of: [{ type: 'string' }], // Array of strings
+      type: 'array', // Array to store multiple selections
+      of: [{ type: 'string' }], // Each element in the array will be a string
       options: {
         list: ['ROJ', 'Campaign'], // Predefined options for selection
-        layout: 'radio', // Display options as radio buttons
+        layout: 'checkbox', // Display options as checkboxes (allows multiple selections)
       },
-      initialValue: [], // Set an empty array as the default value
+      initialValue: [], // Set an empty array as the default value (no selections)
       validation: (Rule) =>
-        Rule.required() // Partner type is required
-          .min(1) // Minimum of 1 selection
-          .max(2) // Maximum of 2 selections
-          .custom((value, context) => {
-            // Check for duplicate partner names
-            const existingPartners = context.document.parent.children.filter(
-              (child) => child.type === 'partner' && child._id !== context.document._id
-            );
-
-            const existingPartnerWithSameName = existingPartners.find(
-              (partner) => partner.name === value
-            );
-
-            if (existingPartnerWithSameName) {
-              return 'A partner with this name already exists.';
-            }
-
-            return true;
-          }),
+        Rule.required() // Partner type is required (at least one checkbox must be selected)
+          // No need for min or max validation since checkboxes allow any number of selections
     },
     {
       // Partner name field
