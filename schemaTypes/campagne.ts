@@ -1,3 +1,4 @@
+//MUST ADD REFERENCE TO PARTENAIRES
 import { defineType } from 'sanity';
 import { AddDocumentIcon } from '@sanity/icons';
 import content from './content'; // Importing the content schema to inherit fields
@@ -77,4 +78,6 @@ export default defineType({
     },
   ],
 });
+
+
 
