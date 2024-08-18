@@ -5,7 +5,7 @@ export default defineType({
   title: 'Image',
   type: 'image',
   options: {
-    hotspot: true, // Enable hotspot functionality for cropping and positioning
+    hotspot: false, // We have to Enable hotspot functionality for  partners (To be discussed later)
   },
   fields: [
     {
