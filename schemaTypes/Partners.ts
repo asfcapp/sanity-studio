@@ -30,23 +30,6 @@ export default defineType({
           // No need for min or max validation since checkboxes allow any number of selections
     },
     {
-      // Partner name field
-      name: 'name',
-      title: 'Partner Name',
-      type: 'string',
-      validation: (Rule) => Rule.required(), // Partner name is required
-    },
+    
     {
-      // Slug generation based on partner name
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'name', // Generate slug from the partner name
-        maxLength: 96, // Optional: Set a maximum slug length (default is 128)
-        isUnique: true, // Ensure unique slugs for partners
-      },
-    },
-    // ... other partner-specific fields can be added here
-  ],
-});
+     
