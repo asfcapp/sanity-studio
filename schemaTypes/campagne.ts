@@ -1,54 +1,80 @@
-// **Document Type: Campagne (Campaign)**
+import { defineType } from 'sanity';
+import { AddDocumentIcon } from '@sanity/icons';
+import content from './content'; // Importing the content schema to inherit fields
 
-export default {
-  name: "campagne", // **Crucial for Normalization: Unique Document Identifier**
-  // This unique identifier ensures that each campaign document has a distinct identity, making it easier to retrieve, manage, and reference specific campaigns.
-
-  title: "Campagne",
-  type: "document",
+export default defineType({
+  name: 'campagne',
+  title: 'Campagne',
+  type: 'document',
+  icon: AddDocumentIcon,
   fields: [
-    {
-      name: "titre", // **Crucial for Normalization: Unique Campaign Title**
-      // A unique campaign title helps distinguish individual campaigns and provides a clear name for referencing and identifying campaigns.
+    // Inherit common fields from the content schema
+    ...content.fields,
 
-      type: "string",
-      title: "Nom de la Campagne", // Campaign Name
-      validation: (rule) => rule.required(),
+    // Campaign-specific fields
+    {
+      name: 'description',
+      title: 'Brève Présentation',
+      type: 'text',
+      validation: (Rule) => Rule.required().max(200),
+      // A brief description of the campaign, providing a quick overview of its purpose and scope.
+      // This field is required and limited to 200 characters to ensure a concise summary.
     },
     {
-      name: "description",
-      type: "text",
-      title: "Brève Présentation", // Brief Overview
-      validation: (rule) => rule.required(),
+      name: 'partenaires',
+      title: 'Partenaires',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'partenaire' }] }],
+      // An array of references to Partner documents.
+      // This allows for linking multiple partners to the campaign, enabling flexible and reusable partner associations.
     },
     {
-      name: "partenaires", // **Crucial for Modularization: Reusable Partner References**
-      // By using references to partner documents, you can reuse partner information across multiple campaigns, reducing redundancy and improving data management.
-
-      type: "array",
-      title: "Partenaires", // Partners
-      of: [{ type: "reference", to: [{ type: "partenaire" }] }],
-      description: "Références aux documents Partenaire avec des images réutilisables", // References to Partner documents with reusable images
-    },
-    {
-      name: "donnees", // **Crucial for Modularization: Encapsulated Campaign Data**
-      // Encapsulating campaign data within a dedicated object promotes modularity by grouping related data together, making it easier to manage and access campaign-specific information.
-
-      type: "object",
-      title: "Données de la Campagne", // Campaign Data
-      fields: [
-       
-        // Add fields for key campaign metrics (e.g., target audience, fundraising goals)
+      name: 'donnees',
+      title: 'Données de la Campagne',
+      type: 'array',
+      of: [
+        {
+          name: 'dataField',
+          title: 'Champ de données',
+          type: 'object',
+          fields: [
+            {
+              name: 'name',
+              title: 'Nom du champ',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+              // A required string field for the name of the data field.
+              // It identifies each metric or specific data point related to the campaign.
+            },
+            {
+              name: 'value',
+              title: 'Valeur du champ',
+              type: 'string',
+              // A string field for the value associated with the data field.
+              // Allows capturing various campaign-specific information flexibly.
+            },
+          ],
+        },
       ],
+      // A flexible array of data fields for campaigns.
+      // Enables dynamic and customizable campaign-specific data to be captured.
     },
     {
-      name: "infractions", // **Crucial for Modularization: Encapsulated Offense References**
-      // Encapsulating offense references within a dedicated array promotes modularity by separating campaign-related offenses, making it easier to manage and retrieve associated offenses.
-
-      type: "array",
-      title: "Infractions", // Offenses
-      of: [{ type: "reference", to: [{ type: "infraction" }] }],
-      description: "Références aux documents Infraction", // References to Offense documents
+      name: 'infractions',
+      title: 'Infractions',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'infraction' }] }],
+      // An array of references to Infraction documents.
+      // This allows associating specific infractions with the campaign, aiding in the management of related offenses.
+    },
+    {
+      name: 'seo',
+      title: 'SEO',
+      type: 'reference',
+      to: [{ type: 'seo' }],
+      // Reference to the SEO schema for optimizing the campaign for search engines.
+      // Ensures that campaigns are properly configured to improve online visibility.
     },
   ],
-};
+});
+
