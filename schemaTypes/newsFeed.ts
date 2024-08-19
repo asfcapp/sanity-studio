@@ -1,6 +1,6 @@
 import {defineType} from 'sanity'
 
-// Simplified validation function to ensure all referenced items have 'isDisplayedOnHome' set to true
+// //This Function ensures that all referenced items have 'isDisplayedOnHome' set to true
 function validateNewsfeed(value, context) {
   return value.every((ref) => context.get(ref._ref)?.isDisplayedOnHome === true)
     ? true
