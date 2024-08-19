@@ -1,5 +1,5 @@
-import { defineType } from 'sanity'
-import { slugify } from '../utils/slugify' // Import custom function to format SEO friendly URLs
+import { defineType } from 'sanity';
+import { slugify } from '../utils/slugify'; // Import custom function to format SEO friendly URLs
 
 export default defineType({
   name: 'seo',
@@ -7,16 +7,25 @@ export default defineType({
   type: 'object',
   fields: [
     {
+      name: 'metaTitle',
+      title: 'Meta Title',
+      type: 'string',
+      // Add validation for maximum and minimum length (e.g., 60 characters)
+      description: 'The title that appears in search engine results.',
+    },
+    {
       name: 'title',
       title: 'SEO Title',
       type: 'string',
       // Add validation for maximum and minimum length (e.g., 60 characters)
+      description: 'The main title of the content.',
     },
     {
       name: 'description',
       title: 'Meta Description',
       type: 'text',
       // Add validation for maximum and minimum length (e.g., 150-160 characters)
+      description: 'A brief summary of the content that appears in search engine results.',
     },
     {
       name: 'slug',
@@ -163,4 +172,4 @@ export default defineType({
       of: [{ type: 'reference', to: { type: 'category' } }], // Assuming a 'category' schema
     },
   ],
-})
+});
