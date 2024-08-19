@@ -11,7 +11,8 @@ export default defineType({
     // Inherit fields from the content schema, allowing for selective inheritance.
     // This means we can choose exactly which fields from 'content' we want to include in this schema.
     // This also allows for customization of fields even if they are not in content.ts (LSP principle)
-    ...content.fields,
+    // Filter content fields to include only title and slug
+    ...content.fields.filter(field => field.name === 'title' || field.name === 'slug'),
 
     // Campaign-specific fields
     {
