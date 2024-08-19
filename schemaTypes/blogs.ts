@@ -35,6 +35,7 @@ export default defineType({
       type: 'datetime',
       validation: (Rule) => Rule.required(),
     },
+    // categorie of the blog official or for community 
     {
       name: 'category',
       title: 'Catégorie',
