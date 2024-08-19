@@ -22,7 +22,7 @@ export default defineType({
       type: 'array', // Array to store multiple selections
       of: [{ type: 'string' }], // Each element in the array will be a string
       options: {
-        list: ['ROJ', 'Campaign'], // Predefined options for selection
+        list: ['ROJ', 'Campagne'], // Predefined options for selection
         layout: 'checkbox', // Display options as checkboxes (allows multiple selections)
       },
       initialValue: [], // Set an empty array as the default value (no selections)
