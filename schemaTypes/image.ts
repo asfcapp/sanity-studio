@@ -55,6 +55,7 @@ export default defineType({
       // Use a built-in icon from @sanity/icons
       icon: ComponentIcon.Image,
     },
+    //Allows adding a cover picture
     {
       name: 'isCoverImage',
       type: 'boolean',
