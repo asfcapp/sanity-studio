@@ -35,5 +35,19 @@ export default defineType({
       type: 'datetime',
       validation: (Rule) => Rule.required(),
     },
+    {
+      name: 'category',
+      title: 'Catégorie',
+      type: 'string',
+      options: {
+          list: [
+              { title: 'Officiel', value: 'official' },
+              { title: 'Communauté', value: 'community' },
+          ],
+      layout: 'radio', // Present options as radio buttons
+      defaultValue: 'official' // Valeur par défaut
+    },
+      validation: (Rule) => Rule.required(), // Ensure a category is selected
+    }
   ],
 })
