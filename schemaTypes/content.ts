@@ -52,15 +52,6 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'featuredImage',
-      title: 'Image principale',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-      validation: (Rule) => Rule.required(),
-    },
-    {
       name: 'author',
       title: 'Auteur',
       type: 'reference',
