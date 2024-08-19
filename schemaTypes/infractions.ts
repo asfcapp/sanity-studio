@@ -6,8 +6,8 @@ export default defineType({
   type: 'document',
   fields: [
     {
-      name: 'offenseName',
-      title: 'Offense Name',
+      name: 'infractionName',
+      title: 'Infraction Name',
       type: 'string',
       validation: (Rule) => Rule.required(),
       // Unique identifier for the offense
