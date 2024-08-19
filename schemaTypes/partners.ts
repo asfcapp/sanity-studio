@@ -10,10 +10,11 @@ export default defineType({
 
   // Document fields
   fields: [
-    // Inherit needed  fields from the content schema
+    // Inherit only needed fields from the content schema: If he doesn't redirect ot other page inherits title only
     ...content.fields,
 
     // Specific fields for Partner documents
+    //Might need its proper descrption 
     {
       // Partner type selection - using checkboxes for multiple selections
       name: 'partnerType',
