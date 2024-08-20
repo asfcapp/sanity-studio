@@ -1,128 +1,29 @@
-import {defineField, defineType} from 'sanity'
+import {defineType} from 'sanity'
 import {AddDocumentIcon} from '@sanity/icons'
-
+import content from './content'
 export default defineType({
-  name: 'presse',
+  name: 'communiques',
   title: 'Communiqué de presse',
   type: 'document',
   icon: AddDocumentIcon,
-  groups: [
-    {name: 'content', title: 'Content Fields'},
-    {name: 'seo', title: 'SEO Fields'},
-  ],
   fields: [
-    defineField({
-      name: 'title',
-      title: 'Title',
-      type: 'string',
-      group: 'content',
-    }),
-    defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      group: 'content',
-
-      options: {
-        source: 'title',
-        maxLength: 96,
-      },
-    }),
-    defineField({
-      name: 'author',
-      title: 'Author',
-      type: 'reference',
-      group: 'content',
-
-      to: {type: 'author'},
-    }),
-    defineField({
-      name: 'mainImage',
-      title: 'Main image',
-      type: 'image',
-      group: 'content',
-
-      options: {
-        hotspot: true,
-      },
-    }),
-    defineField({
-      name: 'body',
-      title: 'Body',
-      type: 'blockContent',
-      group: 'content',
-    }),
-    defineField({
+    // inherit all fields  from content
+    ...content.fields,
+    // Additional fields specific to blog
+    {
       name: 'publishedAt',
       title: 'Published at',
       type: 'datetime',
-      group: 'content',
-    }),
-    defineField({
-      name: 'blogCategory',
-      title: 'Blog categories',
-      type: 'array',
-      of: [{type: 'reference', to: {type: 'blogCategory'}}],
-      group: 'content',
-    }),
-    defineField({
-      name: 'columnistCategory',
-      title: 'Columnist categories',
-      type: 'array',
-      of: [{type: 'reference', to: {type: 'tag'}}],
-      group: 'content',
-    }),
-
-    defineField({
-      name: 'displayOnHomePage',
-      title: 'Display on Home Page',
+      validation: (Rule) => Rule.required(),
+    },
+    // isDisplayedOnHome field to add the blog to newsfeed
+    {
+      name: 'isDisplayedOnHome',
+      title: 'Display on Homepage',
       type: 'boolean',
-      description: 'Check this box if you want this post to be displayed on the home page.',
-      group: 'content',
-    }),
-    // SEO Fields
-    defineField({
-      name: 'seo',
-      type: 'object',
-      title: 'SEO',
-      group: 'seo',
-      fields: [
-        defineField({
-          name: 'metaTitle',
-          type: 'string',
-          title: 'Meta Title',
-          validation: (Rule) => Rule.required().max(60),
-        }),
-        defineField({
-          name: 'metaDescription',
-          type: 'text',
-          title: 'Meta Description',
-          validation: (Rule) =>
-            Rule.required()
-              .min(70)
-              .max(160)
-              .warning('Meta Description should be between 70 and 160 characters.'),
-        }),
-        defineField({
-          name: 'keywords',
-          type: 'array',
-          title: 'Keywords',
-          of: [{type: 'string'}],
-          validation: (Rule) => Rule.unique(),
-        }),
-      ],
-    }),
+      description: 'Indicates whether this blog post will be displayed on the homepage.',
+      initialValue: false, // Default value
+      validation: (Rule) => Rule.required(), // Validation to ensure the field is defined
+    },
   ],
-
-  preview: {
-    select: {
-      title: 'title',
-      author: 'author.name',
-      media: 'mainImage',
-    },
-    prepare(selection) {
-      const {author} = selection
-      return {...selection, subtitle: author && `by ${author}`}
-    },
-  },
 })
