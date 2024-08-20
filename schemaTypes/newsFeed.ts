@@ -36,8 +36,21 @@ function validateNewsfeed(value: Reference[], context: ValidationContext): true 
 export default defineType({
   name: 'newsfeed',
   title: 'Newsfeed',
-  type: 'array',
-  of: [{type: 'reference', to: [{type: 'blog'}, {type: 'communiques'}]}],
-  validation: (Rule: Rule) =>
-    Rule.custom((value) => validateNewsfeed(value as Reference[], Rule.context)),
+  type: 'document',
+  fields: [
+    {
+      name: 'references',
+      title: 'References',
+      type: 'array',
+      of: [
+        {
+          type: 'reference',
+          to: [{type: 'blog'}, {type: 'communiques'}],
+        },
+      ],
+      validation: (Rule: Rule) =>
+        Rule.custom((value) => validateNewsfeed(value as any[], Rule.context)),
+    },
+    // Add other fields for the newsfeed document if needed
+  ],
 })

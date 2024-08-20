@@ -87,15 +87,7 @@ export default defineType({
         {
           name: 'image',
           type: 'reference',
-          to: [{type: 'image'}],
-        },
-        {
-          name: 'isCoverImage',
-          type: 'boolean',
-          title: 'Is Cover Image',
-          description:
-            'If checked, this image will be used as the cover image for the associated content.',
-          initialValue: false,
+          to: [{type: 'illustration'}],
         },
       ],
     }),

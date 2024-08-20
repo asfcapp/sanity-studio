@@ -4,7 +4,7 @@ import {slugify} from '../utils/slugify' // Import custom function to format SEO
 export default defineType({
   name: 'seo',
   title: 'SEO & Metadata',
-  type: 'object',
+  type: 'document',
   fields: [
     {
       name: 'metaTitle',

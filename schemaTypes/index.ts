@@ -13,6 +13,7 @@ import infraction from './infractions'
 import communique from './communiques'
 import footer from './footer'
 import seo from './seo'
+import illustration from './illustration'
 
 // Export all schemas as 'schemaTypes'
 export const schemaTypes = [
@@ -31,4 +32,5 @@ export const schemaTypes = [
   footer,
   seo,
   authorReference,
+  illustration,
 ]
