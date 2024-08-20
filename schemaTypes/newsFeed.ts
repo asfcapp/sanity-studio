@@ -1,8 +1,33 @@
-import {defineType} from 'sanity'
+import {defineType, Rule, ValidationContext} from 'sanity'
 
-// //This Function ensures that all referenced items have 'isDisplayedOnHome' set to true
-function validateNewsfeed(value, context) {
-  return value.every((ref) => context.get(ref._ref)?.isDisplayedOnHome === true)
+// Type for a reference object
+interface Reference {
+  _ref: string
+}
+
+// Type for a document with the `isDisplayedOnHome` field
+interface DocumentWithDisplay {
+  _id: string
+  isDisplayedOnHome?: boolean
+}
+
+// Function to validate that all referenced items have 'isDisplayedOnHome' set to true
+function validateNewsfeed(value: Reference[], context: ValidationContext): true | string {
+  // Ensure value is an array before proceeding with validation
+  if (!Array.isArray(value)) {
+    return 'Expected an array of references'
+  }
+
+  // Validate that all references are valid
+  const allValidRefs = value.every((ref) => ref._ref)
+  if (!allValidRefs) {
+    return 'All items must be valid references'
+  }
+
+  // Validate that all referenced documents have 'isDisplayedOnHome' set to true
+  const documents = value.map((ref) => context.get(ref._ref) as DocumentWithDisplay | undefined)
+
+  return documents.every((doc) => doc?.isDisplayedOnHome === true)
     ? true
     : 'All referenced content must have isDisplayedOnHome set to true'
 }
@@ -12,7 +37,7 @@ export default defineType({
   name: 'newsfeed',
   title: 'Newsfeed',
   type: 'array',
-  of: [{type: 'reference', to: [{type: 'blog'}, {type: 'communique'}, {type: 'ressource'}]}],
-  // Apply the validation function to the 'newsfeed' field
-  validation: validateNewsfeed,
+  of: [{type: 'reference', to: [{type: 'blog'}, {type: 'communiques'}]}],
+  validation: (Rule: Rule) =>
+    Rule.custom((value) => validateNewsfeed(value as Reference[], Rule.context)),
 })

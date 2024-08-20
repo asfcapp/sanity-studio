@@ -1,5 +1,5 @@
-import { defineType } from 'sanity';
-import { slugify } from '../utils/slugify'; // Import custom function to format SEO friendly URLs
+import {defineType} from 'sanity'
+import {slugify} from '../utils/slugify' // Import custom function to format SEO friendly URLs
 
 export default defineType({
   name: 'seo',
@@ -41,7 +41,7 @@ export default defineType({
       name: 'keywords',
       title: 'Keywords',
       type: 'array',
-      of: [{ type: 'string' }],
+      of: [{type: 'string'}],
       // Consider adding a validation for maximum number of keywords
     },
     {
@@ -74,7 +74,7 @@ export default defineType({
           name: 'image',
           title: 'Image',
           type: 'reference',
-          to: [{ type: 'image' }],
+          to: [{type: 'image'}],
         },
         {
           name: 'url',
@@ -105,7 +105,7 @@ export default defineType({
           name: 'image',
           title: 'Twitter Image',
           type: 'reference',
-          to: [{ type: 'image' }],
+          to: [{type: 'image'}],
         },
         {
           name: 'cardType',
@@ -113,11 +113,11 @@ export default defineType({
           type: 'string',
           options: {
             list: [
-              { title: 'Summary', value: 'summary' },
-              { title: 'Summary with Large Image', value: 'summary_large_image' },
-              { title: 'Photo', value: 'photo' },
-              { title: 'Video', value: 'video' },
-              { title: 'Gallery', value: 'gallery' },
+              {title: 'Summary', value: 'summary'},
+              {title: 'Summary with Large Image', value: 'summary_large_image'},
+              {title: 'Photo', value: 'photo'},
+              {title: 'Video', value: 'video'},
+              {title: 'Gallery', value: 'gallery'},
             ],
           },
         },
@@ -154,22 +154,16 @@ export default defineType({
       name: 'robots',
       title: 'Robots Directives',
       type: 'array',
-      of: [{ type: 'string' }],
+      of: [{type: 'string'}],
       options: {
         list: [
-          { title: 'Index', value: 'index' },
-          { title: 'Noindex', value: 'noindex' },
-          { title: 'Follow', value: 'follow' },
-          { title: 'Nofollow', value: 'nofollow' },
+          {title: 'Index', value: 'index'},
+          {title: 'Noindex', value: 'noindex'},
+          {title: 'Follow', value: 'follow'},
+          {title: 'Nofollow', value: 'nofollow'},
           // Add other directives as needed
         ],
       },
     },
-    {
-      name: 'categories',
-      title: 'Categories',
-      type: 'array',
-      of: [{ type: 'reference', to: { type: 'category' } }], // Assuming a 'category' schema
-    },
   ],
-});
+})

@@ -1,6 +1,6 @@
-import { defineType } from 'sanity';
-import { AddDocumentIcon } from '@sanity/icons';
-import content from './content'; // Importing the content schema to inherit fields
+import {defineType} from 'sanity'
+import {AddDocumentIcon} from '@sanity/icons'
+import content from './content' // Importing the content schema to inherit fields
 
 export default defineType({
   name: 'campagne',
@@ -12,7 +12,7 @@ export default defineType({
     // This means we can choose exactly which fields from 'content' we want to include in this schema.
     // This also allows for customization of fields even if they are not in content.ts (LSP principle)
     // Filter content fields to include only title and slug
-    ...content.fields.filter(field => field.name === 'title' || field.name === 'slug'),
+    ...content.fields.filter((field) => field.name === 'title' || field.name === 'slug'),
 
     // Campaign-specific fields
     {
@@ -20,7 +20,7 @@ export default defineType({
       title: 'Campaign Name',
       type: 'string',
       validation: (Rule) => Rule.required(),
-     // This field is required. It must be filled in for each campaign.
+      // This field is required. It must be filled in for each campaign.
     },
     {
       name: 'description',
@@ -33,22 +33,22 @@ export default defineType({
       name: 'partners',
       title: 'Partners',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'partners' }] }],
+      of: [{type: 'reference', to: [{type: 'partner'}]}],
       // An array of references to Partner documents for collaboration
     },
     {
       name: 'infractions',
       title: 'Infractions',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'infraction' }] }],
+      of: [{type: 'reference', to: [{type: 'infraction'}]}],
       // An array of references to Infraction documents associated with the campaign
     },
     {
       name: 'seo',
       title: 'SEO',
       type: 'reference',
-      to: [{ type: 'seo' }],
+      to: [{type: 'seo'}],
       // Reference to SEO data for optimizing the campaign's search visibility
     },
   ],
-});
+})

@@ -33,7 +33,7 @@ const internalLinkAnnotation = {
       title: 'Page',
       name: 'reference',
       type: 'reference',
-      to: [{type: 'page'}], // Replace 'page' with the type of your page
+      to: [{type: 'content'}], // Replace 'page' with the type of your page
     },
   ],
 }
