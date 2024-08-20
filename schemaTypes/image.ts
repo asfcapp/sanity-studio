@@ -1,4 +1,4 @@
-import { defineType, ComponentIcon } from 'sanity';
+import {defineType, ComponentIcon} from 'sanity'
 
 export default defineType({
   name: 'image',
@@ -31,7 +31,7 @@ export default defineType({
       name: 'asset',
       title: 'Asset',
       type: 'reference',
-      to: [{ type: 'asset' }],
+      to: [{type: 'asset'}],
       // References an asset document, which might contain additional information about the image
     },
     {
@@ -60,8 +60,9 @@ export default defineType({
       name: 'isCoverImage',
       type: 'boolean',
       title: 'Is Cover Image',
-      description: 'If checked, this image will be used as the cover image for the associated content.',
-      defaultValue: false, // Default to false to avoid accidentally setting all images as cover images
+      description:
+        'If checked, this image will be used as the cover image for the associated content.',
+      initialValue: false, // Default to false to avoid accidentally setting all images as cover images
     },
   ],
-});
+})
