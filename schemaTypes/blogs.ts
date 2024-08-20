@@ -1,20 +1,14 @@
 import {defineType} from 'sanity'
 import {SchemaIcon} from '@sanity/icons'
-
+import content from './content'
 export default defineType({
   name: 'blog',
   title: 'Blog',
   type: 'document',
   icon: SchemaIcon,
   fields: [
-    // Reference to the content document
-    {
-      name: 'contentReference',
-      title: 'Content',
-      type: 'reference',
-      to: [{type: 'content'}],
-      validation: (Rule) => Rule.required(),
-    },
+    // inherit the content field title and slug
+    ...content.fields.filter((field) => field.name === 'title' || field.name === 'slug'),
 
     // Additional fields specific to blog
     {
@@ -43,16 +37,16 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Official', value: 'official' },
-          { title: 'Community', value: 'community' },
+          {title: 'Official', value: 'official'},
+          {title: 'Community', value: 'community'},
         ],
         layout: 'radio', // Present options as radio buttons
-        defaultValue: 'official' // Default value
+        defaultValue: 'official', // Default value
       },
       validation: (Rule) => Rule.required(), // Ensure a category is selected
     },
 
-    // isDisplayedOnHome field to add the blog to newsfeed 
+    // isDisplayedOnHome field to add the blog to newsfeed
     {
       name: 'isDisplayedOnHome',
       title: 'Display on Homepage',
@@ -60,6 +54,6 @@ export default defineType({
       description: 'Indicates whether this blog post will be displayed on the homepage.',
       initialValue: false, // Default value
       validation: (Rule) => Rule.required(), // Validation to ensure the field is defined
-    }
+    },
   ],
 })

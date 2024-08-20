@@ -74,7 +74,7 @@ export default defineType({
           name: 'image',
           title: 'Image',
           type: 'reference',
-          to: [{type: 'image'}],
+          to: [{type: 'illustration'}],
         },
         {
           name: 'url',
@@ -105,7 +105,7 @@ export default defineType({
           name: 'image',
           title: 'Twitter Image',
           type: 'reference',
-          to: [{type: 'image'}],
+          to: [{type: 'illustration'}],
         },
         {
           name: 'cardType',

@@ -30,7 +30,7 @@ export const author = defineType({
       name: 'image',
       title: 'Image',
       type: 'reference',
-      to: [{type: 'image'}],
+      to: [{type: 'illustration'}],
     },
     {
       name: 'social',

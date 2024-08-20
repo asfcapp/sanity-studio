@@ -1,4 +1,4 @@
-import { defineType } from 'sanity';
+import {defineType} from 'sanity'
 
 export default defineType({
   name: 'infraction',
@@ -28,9 +28,8 @@ export default defineType({
     {
       name: 'moroccanData',
       title: 'Moroccan Data',
-      type: 'array',
-      of: [{ type: 'blockContent' }], // Adjust the type based on the specific data you need
+      type: 'blockContent',
       // Specific data related to the offense within the Moroccan context
     },
   ],
-});
+})
