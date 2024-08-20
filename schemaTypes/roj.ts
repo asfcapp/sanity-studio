@@ -8,14 +8,19 @@ export const roj = defineType({
   icon: DocumentIcon,
   fields: [
     // Inherit all fields from the content schema
-    ...content.fields,
+    ...content.fields.filter(
+      (field) =>
+        field.name === 'slug' ||
+        field.name === 'title' ||
+        field.name === 'description' ||
+        field.name === 'body',
+    ),
     // Specific fields for ROJ documents
     {
-      name: 'partners',
-      title: 'Partners',
-      type: 'array',
-      of: [{type: 'reference', to: [{type: 'partner'}]}],
-      validation: (Rule) => Rule.required(),
+      name: 'seo',
+      title: 'SEO',
+      type: 'reference',
+      to: [{type: 'seo'}],
     },
   ],
 })

@@ -4,7 +4,7 @@ import {AddDocumentIcon} from '@sanity/icons'
 export default defineType({
   name: 'content',
   title: 'Contenu',
-  type: 'document',
+  type: 'object',
   icon: AddDocumentIcon,
   fields: [
     {

@@ -12,20 +12,11 @@ export default defineType({
       type: 'string',
       // Add validation for maximum and minimum length (e.g., 60 characters)
       description: 'The title that appears in search engine results.',
-    },
-    {
-      name: 'title',
-      title: 'SEO Title',
-      type: 'string',
-      // Add validation for maximum and minimum length (e.g., 60 characters)
-      description: 'The main title of the content.',
-    },
-    {
-      name: 'description',
-      title: 'Meta Description',
-      type: 'text',
-      // Add validation for maximum and minimum length (e.g., 150-160 characters)
-      description: 'A brief summary of the content that appears in search engine results.',
+      validation: (Rule) =>
+        Rule.min(50)
+          .max(70)
+          .required()
+          .warning('Meta title should be between 50 and 70 characters long'),
     },
     {
       name: 'slug',
@@ -36,27 +27,35 @@ export default defineType({
         maxLength: 96,
         slugify: (input) => slugify(input), // Use custom slugify function
       },
+      validation: (Rule) => Rule.required().error('Slug is required'),
     },
+    {
+      name: 'description',
+      title: 'Meta Description',
+      type: 'text',
+      // Add validation for maximum and minimum length (e.g., 150-160 characters)
+      description: 'A brief summary of the content that appears in search engine results.',
+      validation: (Rule) =>
+        Rule.min(150)
+          .max(300)
+          .required()
+          .warning('Meta description should be between 150 and 300 characters long'),
+    },
+
     {
       name: 'keywords',
       title: 'Keywords',
       type: 'array',
       of: [{type: 'string'}],
       // Consider adding a validation for maximum number of keywords
-    },
-    {
-      name: 'image',
-      title: 'SEO Image',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-      // Add validation for image dimensions (e.g., minimum width and height)
+      validation: (Rule) => Rule.min(2).warning('Meta keywords should not exceed 10').required(),
     },
     {
       name: 'openGraph',
       title: 'Open Graph',
       type: 'object',
+      description:
+        'La fonctionnalité Opengraph vous permet de choisir un titre et une image différent pour partager votre contenu sur chaque réseau social',
       fields: [
         {
           name: 'title',
@@ -76,12 +75,13 @@ export default defineType({
           type: 'reference',
           to: [{type: 'illustration'}],
         },
-        {
-          name: 'url',
-          title: 'URL',
-          type: 'url',
-          // Consider using a computed field based on the document's URL
-        },
+        // this feature helps improving readability for social MEdia URLs (not needed yet)
+        // {
+        //   name: 'url',
+        //   title: 'URL',
+        //   type: 'url',
+        // Consider using a computed field based on the document's URL
+        // },
       ],
     },
     {
@@ -144,11 +144,15 @@ export default defineType({
       name: 'noindex',
       title: 'Noindex',
       type: 'boolean',
+      description:
+        'Description for noindex: Activez cette fonctionnalité UNIQUEMENT si vous désirez que les moteurs de recherche ne détectent pas votre article!',
     },
     {
       name: 'nofollow',
       title: 'Nofollow',
       type: 'boolean',
+      description:
+        'Cet attribut indique aux moteurs de recherche de ne pas suivre les liens présents sur la page',
     },
     {
       name: 'robots',

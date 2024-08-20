@@ -7,27 +7,34 @@ export default defineType({
   fields: [
     {
       name: 'infractionName',
-      title: 'Infraction Name',
+      title: "Nom de l'infraction",
       type: 'string',
       validation: (Rule) => Rule.required(),
       // Unique identifier for the offense
     },
     {
       name: 'briefDescription',
-      title: 'Brief Description',
+      title: 'Brève description',
       type: 'text',
       validation: (Rule) => Rule.required(),
       // Concise explanation of the offense
     },
     {
+      name: 'infractionImage',
+      title: "Image de l'infraction",
+      type: 'reference',
+      to: [{type: 'illustration'}],
+      // Illustration representing the infraction
+    },
+    {
       name: 'lawArticle',
-      title: 'Law Article',
+      title: 'Article(s) de Loi',
       type: 'blockContent',
       // Reference to the relevant article in the legal code
     },
     {
       name: 'moroccanData',
-      title: 'Moroccan Data',
+      title: 'Data Maroc',
       type: 'blockContent',
       // Specific data related to the offense within the Moroccan context
     },

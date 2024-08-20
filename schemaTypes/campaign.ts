@@ -8,12 +8,6 @@ export default defineType({
   type: 'document',
   icon: AddDocumentIcon,
   fields: [
-    // Inherit fields from the content schema, allowing for selective inheritance.
-    // This means we can choose exactly which fields from 'content' we want to include in this schema.
-    // This also allows for customization of fields even if they are not in content.ts (LSP principle)
-    // Filter content fields to include only title and slug
-    ...content.fields.filter((field) => field.name === 'title' || field.name === 'slug'),
-
     // Campaign-specific fields
     {
       name: 'name',
@@ -22,19 +16,24 @@ export default defineType({
       validation: (Rule) => Rule.required(),
       // This field is required. It must be filled in for each campaign.
     },
+    // Inherit fields from the content schema, allowing for selective inheritance.
+    // This means we can choose exactly which fields from 'content' we want to include in this schema.
+    // This also allows for customization of fields even if they are not in content.ts (LSP principle)
+    // Filter content fields to include only title and slug
+    ...content.fields.filter((field) => field.name === 'slug'),
+
+    {
+      name: 'image',
+      title: 'image',
+      type: 'reference',
+      to: [{type: 'illustration'}],
+    },
     {
       name: 'description',
-      title: 'Brief Description',
+      title: 'Présentation de la campagne',
       type: 'text',
       validation: (Rule) => Rule.required().max(200),
       // A concise overview of the campaign
-    },
-    {
-      name: 'partners',
-      title: 'Partners',
-      type: 'array',
-      of: [{type: 'reference', to: [{type: 'partner'}]}],
-      // An array of references to Partner documents for collaboration
     },
     {
       name: 'infractions',

@@ -29,6 +29,12 @@ export default defineType({
       type: 'datetime',
       validation: (Rule) => Rule.required(),
     },
+    {
+      name: 'seo',
+      title: 'SEO',
+      type: 'reference',
+      to: [{type: 'seo'}],
+    },
 
     // Blog category: official or community
     {
