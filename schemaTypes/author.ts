@@ -3,7 +3,7 @@ import {slugify} from '../utils/slugify' // Importez votre fonction slugify cent
 
 export const author = defineType({
   name: 'author',
-  title: 'Author',
+  title: 'Auteur',
   type: 'document',
   fields: [
     {
