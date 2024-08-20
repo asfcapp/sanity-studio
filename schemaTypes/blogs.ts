@@ -10,7 +10,7 @@ export default defineType({
     // Reference to the content document
     {
       name: 'contentReference',
-      title: 'Contenu',
+      title: 'Content',
       type: 'reference',
       to: [{type: 'content'}],
       validation: (Rule) => Rule.required(),
@@ -25,30 +25,41 @@ export default defineType({
     },
     {
       name: 'readingTime',
-      title: 'Temps de lecture',
+      title: 'Reading Time',
       type: 'string',
-      description: 'Durée estimée de lecture en minutes',
+      description: 'Estimated reading time in minutes',
     },
     {
       name: 'publishedAt',
-      title: 'Publié le',
+      title: 'Published On',
       type: 'datetime',
       validation: (Rule) => Rule.required(),
     },
-    // categorie of the blog official or for community 
+
+    // Blog category: official or community
     {
       name: 'category',
-      title: 'Catégorie',
+      title: 'Category',
       type: 'string',
       options: {
-          list: [
-              { title: 'Officiel', value: 'official' },
-              { title: 'Communauté', value: 'community' },
-          ],
-      layout: 'radio', // Present options as radio buttons
-      defaultValue: 'official' // Valeur par défaut
-    },
+        list: [
+          { title: 'Official', value: 'official' },
+          { title: 'Community', value: 'community' },
+        ],
+        layout: 'radio', // Present options as radio buttons
+        defaultValue: 'official' // Default value
+      },
       validation: (Rule) => Rule.required(), // Ensure a category is selected
+    },
+
+    // isDisplayedOnHome field to add the blog to newsfeed 
+    {
+      name: 'isDisplayedOnHome',
+      title: 'Display on Homepage',
+      type: 'boolean',
+      description: 'Indicates whether this blog post will be displayed on the homepage.',
+      initialValue: false, // Default value
+      validation: (Rule) => Rule.required(), // Validation to ensure the field is defined
     }
   ],
 })
