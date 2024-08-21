@@ -1,5 +1,5 @@
-import { defineType } from 'sanity'
-import { TagsIcon } from '@sanity/icons'
+import {defineType} from 'sanity'
+import {TagsIcon} from '@sanity/icons'
 
 export default defineType({
   name: 'tag',

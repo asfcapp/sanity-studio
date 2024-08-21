@@ -18,6 +18,12 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     },
     {
+      name: 'illustrations',
+      title: 'Illustrations',
+      type: 'array',
+      of: [{type: 'illustration'}],
+    },
+    {
       name: 'readingTime',
       title: 'Reading Time',
       type: 'string',

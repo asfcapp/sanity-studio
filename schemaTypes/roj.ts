@@ -15,6 +15,12 @@ export const roj = defineType({
         field.name === 'description' ||
         field.name === 'body',
     ),
+    {
+      name: 'imageRoj',
+      title: 'Image ROJ',
+      type: 'reference',
+      to: [{type: 'imageAsset'}],
+    },
     // Specific fields for ROJ documents
     {
       name: 'seo',

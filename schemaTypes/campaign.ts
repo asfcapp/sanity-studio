@@ -26,7 +26,7 @@ export default defineType({
       name: 'image',
       title: 'image',
       type: 'reference',
-      to: [{type: 'illustration'}],
+      to: [{type: 'imageAsset'}],
     },
     {
       name: 'description',

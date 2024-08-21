@@ -23,7 +23,7 @@ export default defineType({
       name: 'infractionImage',
       title: "Image de l'infraction",
       type: 'reference',
-      to: [{type: 'illustration'}],
+      to: [{type: 'imageAsset'}],
       // Illustration representing the infraction
     },
     {

@@ -16,6 +16,12 @@ export default defineType({
       type: 'datetime',
       validation: (Rule) => Rule.required(),
     },
+    {
+      name: 'illustrations',
+      title: 'Illustrations',
+      type: 'array',
+      of: [{type: 'illustration'}],
+    },
     // isDisplayedOnHome field to add the blog to newsfeed
     {
       name: 'isDisplayedOnHome',

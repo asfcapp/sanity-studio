@@ -1,5 +1,4 @@
 import {defineType} from 'sanity'
-import content from './content' // Importing the content schema
 
 // Define the Partner document type
 export default defineType({
@@ -41,7 +40,7 @@ export default defineType({
       name: 'image',
       title: 'Image du partenaire',
       type: 'reference',
-      to: [{type: 'illustration'}],
+      to: [{type: 'imageAsset'}],
     },
   ],
 })
