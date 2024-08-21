@@ -29,11 +29,13 @@ export default defineType({
       name: 'width',
       title: 'Width',
       type: 'number',
+      hidden: true,
     },
     {
       name: 'height',
       title: 'Height',
       type: 'number',
+      hidden: true,
     },
   ],
 })

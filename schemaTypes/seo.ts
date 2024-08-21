@@ -73,7 +73,7 @@ export default defineType({
           name: 'image',
           title: 'Image',
           type: 'reference',
-          to: [{type: 'illustration'}],
+          to: [{type: 'imageAsset'}],
         },
         // this feature helps improving readability for social MEdia URLs (not needed yet)
         // {
@@ -105,7 +105,7 @@ export default defineType({
           name: 'image',
           title: 'Twitter Image',
           type: 'reference',
-          to: [{type: 'illustration'}],
+          to: [{type: 'imageAsset'}],
         },
         {
           name: 'cardType',
