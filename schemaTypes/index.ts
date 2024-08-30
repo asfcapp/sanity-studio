@@ -6,7 +6,6 @@ import tag from './tag'
 import {roj} from './roj'
 import partner from './partners'
 import aboutUs from './aboutUs'
-import newsfeed from './newsFeed'
 import blog from './blogs'
 import campagne from './campaign'
 import infraction from './infractions'
@@ -29,7 +28,6 @@ export const schemaTypes = [
   blockContent,
   communique,
   aboutUs,
-  newsfeed,
   footer,
   seo,
   authorReference,
