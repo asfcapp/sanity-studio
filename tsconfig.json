@@ -1,17 +1,20 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "Preserve",
-    "moduleDetection": "force",
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true
+    "target": "ES2017", // Targeting ECMAScript 2017 for broad compatibility with modern JavaScript features.
+    "lib": ["dom", "dom.iterable", "esnext"], // Including libraries for DOM, DOM iterable APIs, and the latest ECMAScript features.
+    "allowJs": true, // Allow JavaScript files to be compiled. This is useful if your project includes JavaScript files.
+    "skipLibCheck": true, // Skip type checking of declaration files for faster compilation.
+    "strict": true, // Enable all strict type checking options to ensure more robust and error-free code.
+    "forceConsistentCasingInFileNames": true, // Enforce consistent casing in import statements to avoid cross-platform case-sensitivity issues.
+    "noEmit": true, // Added: Prevents TypeScript from emitting JavaScript files after compilation. Since Vite handles transpilation, we don't need TypeScript to emit files.
+    "esModuleInterop": true, // Added: Enables interoperability between CommonJS and ES modules, which improves compatibility with many Node.js modules.
+    "module": "esnext", // Changed from "Preserve" to "esnext": Ensures that TypeScript generates modules compatible with the latest ECMAScript standards, aligning with Sanity's recommendation.
+    "moduleResolution": "node", // Added: Uses Node.js-style module resolution, which is standard for most JavaScript environments, including Vite and Node.js itself.
+    "resolveJsonModule": true, // Added: Allows importing JSON files as modules, which is often required in modern development setups.
+    "isolatedModules": true, // Ensures each file is treated as a separate module. This is necessary for compatibility with tools like Babel and Vite that perform file-by-file transpilation.
+    "jsx": "preserve", // Preserve JSX syntax in the output for further transformation by other tools (like Babel).
+    "incremental": true // Enables incremental compilation, which improves build performance by only recompiling files that have changed.
   },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": ["/.ts", "/.tsx"], // Includes all TypeScript and TSX files for compilation.
+  "exclude": ["node_modules"] // Excludes the node_modules folder from being compiled to improve performance and avoid unnecessary errors.
 }

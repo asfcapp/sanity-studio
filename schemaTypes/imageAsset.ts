@@ -25,17 +25,5 @@ export default defineType({
       type: 'string',
       title: 'Credit',
     },
-    {
-      name: 'width',
-      title: 'Width',
-      type: 'number',
-      hidden: true,
-    },
-    {
-      name: 'height',
-      title: 'Height',
-      type: 'number',
-      hidden: true,
-    },
   ],
 })

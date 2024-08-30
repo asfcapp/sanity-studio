@@ -1,0 +1,5 @@
+{
+  "path": "'../asfc-site/src/**/*.{ts,tsx,js,jsx}'",
+  "schema": "schema.json",
+  "generates": "../asfc-site/src/lib/types.ts"
+}
