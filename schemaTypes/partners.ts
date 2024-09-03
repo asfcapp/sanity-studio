@@ -42,5 +42,11 @@ export default defineType({
       type: 'reference',
       to: [{type: 'imageAsset'}],
     },
+    {
+      name: 'socialLink',
+      title: 'Lien social',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'socialLink'}]}],
+    },
   ],
 })

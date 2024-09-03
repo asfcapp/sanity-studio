@@ -14,7 +14,8 @@ import footer from './footer'
 import seo from './seo'
 import illustration from './illustration'
 import imageAsset from './imageAsset'
-
+import socialLink from './socialLink'
+import iconMapping from './iconMapping'
 // Export all schemas as 'schemaTypes'
 export const schemaTypes = [
   campagne,
@@ -33,4 +34,6 @@ export const schemaTypes = [
   authorReference,
   illustration,
   imageAsset,
+  socialLink,
+  iconMapping,
 ]
