@@ -8,7 +8,9 @@ export default defineType({
   icon: SchemaIcon,
   fields: [
     // inherit the content field title and slug
-    ...content.fields.filter((field) => field.name === 'title' || field.name === 'slug'),
+    ...content.fields.filter(
+      (field) => field.name === 'title' || field.name === 'slug' || field.name === 'body',
+    ),
 
     // Additional fields specific to blog
     {

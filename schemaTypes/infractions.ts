@@ -33,10 +33,26 @@ export default defineType({
       // Reference to the relevant article in the legal code
     },
     {
+      name: 'explanation',
+      title: 'Explication',
+      type: 'blockContent',
+    },
+
+    {
       name: 'moroccanData',
       title: 'Data Maroc',
       type: 'blockContent',
       // Specific data related to the offense within the Moroccan context
+    },
+    {
+      name: 'observation',
+      title: 'Observation',
+      type: 'blockContent',
+    },
+    {
+      name: 'publication',
+      title: 'Publication',
+      type: 'blockContent',
     },
   ],
 })
