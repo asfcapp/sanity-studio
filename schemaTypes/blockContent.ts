@@ -7,6 +7,7 @@ const blockStyles = [
   {title: 'H2', value: 'h2'},
   {title: 'H3', value: 'h3'},
   {title: 'H4', value: 'h4'},
+  {title: 'paragraph', value: 'p'},
   {title: 'Quote', value: 'blockquote'},
 ]
 
@@ -86,8 +87,18 @@ export default defineType({
       fields: [
         {
           name: 'image',
-          type: 'reference',
-          to: [{type: 'imageAsset'}],
+          title: 'Image',
+          type: 'image',
+        },
+        {
+          name: 'alt',
+          title: 'Alternative text',
+          type: 'string',
+        },
+        {
+          name: 'caption',
+          title: 'Caption',
+          type: 'string',
         },
       ],
     }),

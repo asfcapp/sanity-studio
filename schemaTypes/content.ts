@@ -1,5 +1,6 @@
 import {defineType} from 'sanity'
 import {AddDocumentIcon} from '@sanity/icons'
+import {slugify} from '../utils/slugify'
 
 export default defineType({
   name: 'content',
@@ -20,6 +21,7 @@ export default defineType({
       options: {
         source: 'title',
         maxLength: 96,
+        slugify: (input) => slugify(input),
       },
       validation: (Rule) => Rule.required(),
     },

@@ -13,6 +13,12 @@ export default defineType({
       // Unique identifier for the offense
     },
     {
+      name: 'infractionSlug',
+      title: "Slug de l'infraction",
+      type: 'slug',
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: 'briefDescription',
       title: 'Brève description',
       type: 'text',
@@ -53,6 +59,12 @@ export default defineType({
       name: 'publication',
       title: 'Publication',
       type: 'blockContent',
+    },
+    {
+      name: 'seo',
+      title: 'SEO',
+      type: 'reference',
+      to: [{type: 'seo'}],
     },
   ],
 })

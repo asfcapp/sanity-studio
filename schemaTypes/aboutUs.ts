@@ -7,8 +7,26 @@ export default defineType({
   type: 'document',
   fields: [
     // Inherit only title slug and body  fields from the content schema
-    ...content.fields.filter(
-      (field) => field.name === 'title' || field.name === 'slug' || field.name === 'body',
-    ),
+    ...content.fields.filter((field) => field.name === 'title' || field.name === 'slug'),
+    {
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+    },
+    {
+      name: 'mission',
+      title: 'Mission',
+      type: 'text',
+    },
+    {
+      name: 'vision',
+      title: 'Vision',
+      type: 'text',
+    },
+    {
+      name: 'values',
+      title: 'Values',
+      type: 'text',
+    },
   ],
 })

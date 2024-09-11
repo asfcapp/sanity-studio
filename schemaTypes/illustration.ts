@@ -3,7 +3,7 @@ import {defineType} from 'sanity'
 export default defineType({
   name: 'illustration',
   title: 'Illustration',
-  type: 'object',
+  type: 'document',
   fields: [
     {
       name: 'imageAsset',
