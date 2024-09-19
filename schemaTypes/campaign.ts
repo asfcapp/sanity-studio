@@ -32,7 +32,7 @@ export default defineType({
       name: 'description',
       title: 'Présentation de la campagne',
       type: 'text',
-      validation: (Rule) => Rule.required().max(200),
+      validation: (Rule) => Rule.required().max(850),
       // A concise overview of the campaign
     },
     {
