@@ -1,5 +1,6 @@
 import {defineType} from 'sanity'
-
+import {slugify} from '../utils/slugify'
+import {isUniqueAcrossAllDocuments} from '../utils/isUniqueAcrossAllDocuments'
 export default defineType({
   name: 'infraction',
   title: 'Infraction',
@@ -13,9 +14,14 @@ export default defineType({
       // Unique identifier for the offense
     },
     {
-      name: 'infractionSlug',
+      name: 'slug',
       title: "Slug de l'infraction",
       type: 'slug',
+      options: {
+        source: 'infractionName',
+        slugify: (input) => slugify(input),
+        isUnique: isUniqueAcrossAllDocuments,
+      },
       validation: (Rule) => Rule.required(),
     },
     {

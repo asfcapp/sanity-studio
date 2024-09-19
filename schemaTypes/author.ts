@@ -1,6 +1,6 @@
 import {defineType} from 'sanity'
 import {slugify} from '../utils/slugify' // Importez votre fonction slugify centralisée
-
+import {isUniqueAcrossAllDocuments} from '../utils/isUniqueAcrossAllDocuments'
 export const author = defineType({
   name: 'author',
   title: 'Auteur',
@@ -19,6 +19,7 @@ export const author = defineType({
         source: 'name',
         maxLength: 96,
         slugify: (input) => slugify(input), // Utilise la fonction slugify centralisée
+        isUnique: isUniqueAcrossAllDocuments,
       },
     },
     {

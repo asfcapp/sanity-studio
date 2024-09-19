@@ -1,7 +1,7 @@
 import {defineType} from 'sanity'
 import {AddDocumentIcon} from '@sanity/icons'
 import {slugify} from '../utils/slugify'
-
+import {isUniqueAcrossAllDocuments} from '../utils/isUniqueAcrossAllDocuments'
 export default defineType({
   name: 'content',
   title: 'Contenu',
@@ -22,6 +22,7 @@ export default defineType({
         source: 'title',
         maxLength: 96,
         slugify: (input) => slugify(input),
+        isUnique: isUniqueAcrossAllDocuments,
       },
       validation: (Rule) => Rule.required(),
     },

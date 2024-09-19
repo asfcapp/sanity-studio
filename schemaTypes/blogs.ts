@@ -43,7 +43,12 @@ export default defineType({
       type: 'reference',
       to: [{type: 'seo'}],
     },
-
+    {
+      name: 'author',
+      title: 'Auteur',
+      type: 'reference',
+      to: [{type: 'author'}],
+    },
     // Blog category: official or community
     {
       name: 'category',
