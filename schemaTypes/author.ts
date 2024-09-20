@@ -1,6 +1,7 @@
 import {defineType} from 'sanity'
 import {slugify} from '../utils/slugify' // Importez votre fonction slugify centralisée
 import {isUniqueAcrossAllDocuments} from '../utils/isUniqueAcrossAllDocuments'
+import {slugValidation} from '../utils/slugValidation'
 export const author = defineType({
   name: 'author',
   title: 'Auteur',
@@ -21,6 +22,7 @@ export const author = defineType({
         slugify: (input) => slugify(input), // Utilise la fonction slugify centralisée
         isUnique: isUniqueAcrossAllDocuments,
       },
+      validation: slugValidation,
     },
     {
       name: 'bio',
