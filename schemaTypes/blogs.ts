@@ -43,6 +43,7 @@ export default defineType({
       type: 'reference',
       to: [{type: 'seo'}],
     },
+    ...content.fields.filter((field) => field.name === 'tags'),
     {
       name: 'author',
       title: 'Auteur',
