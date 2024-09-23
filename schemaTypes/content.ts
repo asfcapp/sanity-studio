@@ -34,7 +34,7 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'excerpt',
+      name: 'excerpt', //Shows the chosen expcrept for the communiquein their Home UI
       title: 'Extrait',
       type: 'text',
       rows: 4,
