@@ -20,7 +20,7 @@ export default defineType({
       name: 'illustrations',
       title: 'Illustrations',
       type: 'array',
-      of: [{type: 'illustration'}],
+      of: [{type: 'reference', to: [{type: 'illustration'}]}],
     },
     // isDisplayedOnHome field to add the blog to newsfeed
     {
