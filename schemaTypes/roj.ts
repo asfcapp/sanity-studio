@@ -8,7 +8,7 @@ export const roj = defineType({
   icon: DocumentIcon,
   fields: [
     // Inherit all fields from the content schema
-    ...content.fields.filter((field) => field.name === 'slug'),
+    ...content.fields.filter((field) => field.name === 'title' || field.name === 'slug'),
     {
       name: 'imageRoj',
       title: 'Image ROJ',
